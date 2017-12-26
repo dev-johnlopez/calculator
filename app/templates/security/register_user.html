@@ -1,0 +1,25 @@
+{% extends "layouts/auth.html" %}
+
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+{% include "security/_messages.html" %}
+
+{% block form %}
+<form class="form-signin" action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
+  {{ register_user_form.hidden_tag() }}
+  <h2 class="form-signin-heading">Please register</h2>
+
+  {{ render_field_with_errors(register_user_form.email,id="inputEmail", class="form-control", placeholder="Email Address", autofocus="true", required="true") }}
+  {{ render_field_with_errors(register_user_form.password,id="inputPassword", class="form-control", placeholder="Password", required="true") }}
+  {% if register_user_form.password_confirm %}
+    {{ render_field_with_errors(register_user_form.password_confirm,id="confirmPassword", class="form-control", placeholder="Confirm Password", required="true") }}
+  {% endif %}
+  {{ render_field(register_user_form.submit, class="btn btn-lg btn-primary btn-block") }}
+  <br />
+  <div class="strike">
+    <span>OR</span>
+  </div>
+  <br />
+  <a class="btn btn-lg btn-secondary btn-block" type="button" href="{{ url_for_security('login') }}">Sign In</a>
+</form>
+
+{% endblock %}

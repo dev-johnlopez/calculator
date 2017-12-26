@@ -1,0 +1,11 @@
+{% extends 'admin/master.html' %}
+
+<!-- override admin head_css to add custom css.
+      {{ super }} provides the base flask-admin css (boostrap) -->
+{% block head_css %}
+{{ super() }}
+{% endblock head_css %}
+
+{% block body %}
+<p>add custom report dash here</p>
+{% endblock body %}
