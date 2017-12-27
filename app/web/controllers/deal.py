@@ -1,5 +1,5 @@
 from app import db
-from flask import Blueprint, render_template, abort, flash
+from flask import Blueprint, render_template, abort, flash, redirect
 from flask_security import login_required, current_user
 from jinja2 import TemplateNotFound
 from app.web.forms.deal import DealForm
