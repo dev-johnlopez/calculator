@@ -12,18 +12,18 @@ class Property(baseModel.Base):
     listPrice    = db.Column(db.Integer)
     purchasePrice    = db.Column(db.Integer)
     downPayment    = db.Column(db.Integer)
-    interestRate    = db.Column(db.Numeric(2,4))
+    interestRate    = db.Column(db.Numeric(6,4))
 
     #array of units
 
     #Average time of no revenue
-    vacancyRate = db.Column(db.Numeric(3,4))
+    vacancyRate = db.Column(db.Numeric(7,4))
 
     #General Expenses
     taxes = db.Column(db.Integer)
     insurancePremiums = db.Column(db.Integer)
-    propertyManagementFee = db.Column(db.Numeric(3,4))
-    capEx = db.Column(db.Numeric(3,4))
+    propertyManagementFee = db.Column(db.Numeric(7,4))
+    capEx = db.Column(db.Numeric(7,4))
 
     #Monthly Expenses
     maintenance = db.Column(db.Integer)
