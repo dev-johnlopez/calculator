@@ -42,7 +42,6 @@ class ReturnView(BaseView):
     def index(self):
         return redirect(url_for('dashboard.index'))
 
-
 admin.add_view(ModelView(user.User, db.session))
 admin.add_view(ModelView(propertyModel.Property, db.session))
 admin.add_view(ReturnView(name="Exit",endpoint="return"))
