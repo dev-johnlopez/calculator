@@ -16,8 +16,6 @@ def create():
     if form.validate_on_submit():
         createDealFromForm(form)
         return redirect(url_for('dashboard.index'))
-    else:
-        flash('%s' % current_user)
     form.units.append_entry(UnitForm())
     form.units.append_entry(UnitForm())
     form.units.append_entry(UnitForm())
