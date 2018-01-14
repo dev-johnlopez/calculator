@@ -1,4 +1,4 @@
-#!/home/jlo/projects/analyzer/flask/bin/python
+#!/Users/johnlopez/projects/analyzer/flask/bin/python
 
 import sys
 import getopt

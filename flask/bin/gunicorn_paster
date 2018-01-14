@@ -1,4 +1,4 @@
-#!/home/jlo/projects/analyzer/flask/bin/python2
+#!/Users/johnlopez/projects/analyzer/flask/bin/python
 
 # -*- coding: utf-8 -*-
 import re
