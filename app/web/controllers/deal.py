@@ -1,11 +1,12 @@
 from app import db
-from flask import Blueprint, render_template, abort, flash, redirect
+from flask import Blueprint, render_template, abort, flash, redirect, url_for
 from flask_security import login_required, current_user
 from jinja2 import TemplateNotFound
 from app.web.forms.deal import DealForm
 from app.web.forms.unit import UnitForm
 from app.web.models.address import Address
 from app.web.models.property import Property
+from app.web.util.geocode import get_google_results
 deal = Blueprint('deal', __name__, template_folder="web/deal", url_prefix='/deal')
 
 @deal.route('/')
@@ -16,9 +17,6 @@ def create():
     if form.validate_on_submit():
         createDealFromForm(form)
         return redirect(url_for('dashboard.index'))
-    form.units.append_entry(UnitForm())
-    form.units.append_entry(UnitForm())
-    form.units.append_entry(UnitForm())
     form.units.append_entry(UnitForm())
     return render_template('web/deal/create.html',
                            title='Home',
@@ -35,6 +33,12 @@ def createDealFromForm(form):
     address.city = form.address.city.data
     address.state = form.address.state.data
     address.postalCode = form.address.postalCode.data
+
+    #geocode address
+    geoInfo = get_google_results(address)
+    address.latitude = geoInfo['latitude']
+    address.longitude = geoInfo['longitude']
+
     #create deal
     property = Property()
     property.address = address
@@ -44,6 +48,11 @@ def createDealFromForm(form):
     property.interestRate    = form.interestRate.data
 
     #array of units
+    property.units = []
+    for unit in form.units:
+        unit = Unit()
+        unit.income = unit.data
+        property.units.append(unit)
 
     #Average time of no revenue
     property.vacancyRate = form.vacancyRate.data

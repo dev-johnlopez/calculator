@@ -1,182 +1,195 @@
 {% extends "body.html" %}
 {% block content %}
 <div class="container-fluid">
-  <div class="row-fluid">
     <form method="post">
       {{ form.hidden_tag() }}
-      <div class="row">
-        <div class="col-md-6">
-          <h3>Property Info</h3>
-          <div class="form-group">
-            <label for="address-addressLine1">Address</label>
-            {{ form.address.addressLine1(id="address-addressLine1", class="form-control", placeholder="1234 Main St", maxlength=255, required="true") }}
+        <h3>Property Info</h3>
+        <div class="form-group">
+          <label for="address-addressLine1">Address</label>
+          {{ form.address.addressLine1(id="address-addressLine1", class="form-control", placeholder="1234 Main St", maxlength=255, required="true") }}
+        </div>
+        <div class="form-group">
+          <label for="address-addressLine2">Address 2</label>
+          {{ form.address.addressLine2(id="address-addressLine2", class="form-control", placeholder="Apartment, studio, or floor", maxlength=255) }}
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="address-city">City</label>
+            {{ form.address.city(id="address-city", class="form-control", maxlength=255, required="true") }}
           </div>
-          <div class="form-group">
-            <label for="address-addressLine2">Address 2</label>
-            {{ form.address.addressLine2(id="address-addressLine2", class="form-control", placeholder="Apartment, studio, or floor", maxlength=255) }}
+          <div class="form-group col-md-4">
+            <label for="address-state">State</label>
+            {{ form.address.state(id="address-state", class="form-control", placeholder="", required="true") }}
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="address-city">City</label>
-              {{ form.address.city(id="address-city", class="form-control", maxlength=255, required="true") }}
-            </div>
-            <div class="form-group col-md-4">
-              <label for="address-state">State</label>
-              {{ form.address.state(id="address-state", class="form-control", placeholder="", required="true") }}
-            </div>
-            <div class="form-group col-md-2">
-              <label for="address-postalCode">Zip</label>
-              {{ form.address.postalCode(id="address-postalCode", class="form-control", maxlength=5, required="true") }}
-            </div>
+          <div class="form-group col-md-2">
+            <label for="address-postalCode">Zip</label>
+            {{ form.address.postalCode(id="address-postalCode", class="form-control", maxlength=5, required="true") }}
           </div>
         </div>
-        <div class="col-md-6">
-          <h3>Purchase Estimates</h3>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="listPrice">List Price</label>
-              <div class="input-group">
-                <span class="input-group-addon">$</span>
-                {{ form.listPrice(id="listPrice", class="form-control", placeholder="List Price", maxlength=255, required="true") }}
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="purchasePrice">Purchase Price</label>
-              <div class="input-group">
-                <span class="input-group-addon">$</span>
-                {{ form.purchasePrice(id="purchasePrice", class="form-control", placeholder="Purchase Price", maxlength=255, required="true") }}
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="downPayment">Down Payment</label>
-              <div class="input-group">
-                <span class="input-group-addon">$</span>
-                {{ form.downPayment(id="downPayment", class="form-control", placeholder="Down Payment", maxlength=255, required="true") }}
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="interestRate">Interest Rate</label>
-              <div class="input-group">
-                {{ form.interestRate(id="interestRate", class="form-control", placeholder="Interest Rate", maxlength=255, required="true") }}
-                <span class="input-group-addon">%</span>
-              </div>
-            </div>
+        <h3>Purchase Estimates</h3>
+        <div class="form-group">
+          <label for="listPrice">List Price</label>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            {{ form.listPrice(id="listPrice", class="form-control", placeholder="List Price", maxlength=255, required="true") }}
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <h4>Income</h4>
-          {% for unit in form.units %}
-          <div class="form-group row">
-            <label for="unit-1-rent" class="col-md-8 col-form-label">Unit {{ loop.index }} Rent</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              <input type="text" class="form-control" id="unit-1-rent" placeholder="Rent per month">
-            </div>
-          </div>
-          {% endfor %}
-          <div class="form-group row">
-            <label for="vacancyRate" class="col-md-8 col-form-label">Vacancy %</label>
-            <div class="input-group col-md-4">
-              {{ form.vacancyRate(id="vacancyRate", class="form-control", placeholder="Vacancy %", maxlength=3) }}
-              <span class="input-group-addon">%</span>
-            </div>
+        <div class="form-group">
+          <label for="purchasePrice">Purchase Price</label>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            {{ form.purchasePrice(id="purchasePrice", class="form-control", placeholder="Purchase Price", maxlength=255, required="true") }}
           </div>
         </div>
-        <div class="col-md-4">
-          <h4>General Expenses</h4>
-          <div class="form-group row">
-            <label for="taxes" class="col-md-8 col-form-label">Annual Taxes</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.taxes(id="taxes", class="form-control", placeholder="Taxes") }}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="insurancePremiums" class="col-md-8 col-form-label">Insurance Premiums</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.insurancePremiums(id="insurancePremiums", class="form-control", placeholder="Premiums") }}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="propertyManagementFee" class="col-md-8 col-form-label">Property Management Fee</label>
-            <div class="input-group col-md-4">
-              {{ form.propertyManagementFee(id="propertyManagementFee", class="form-control", placeholder="10", maxlength=3) }}
-              <span class="input-group-addon">%</span>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="capEx" class="col-md-8 col-form-label">Capital Expenditure Reserves</label>
-            <div class="input-group col-md-4">
-              {{ form.capEx(id="capEx", class="form-control", placeholder="Cap Ex", maxlength=3) }}
-              <span class="input-group-addon">%</span>
-            </div>
+        <div class="form-group">
+          <label for="downPayment">Down Payment</label>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            {{ form.downPayment(id="downPayment", class="form-control", placeholder="Down Payment", maxlength=255, required="true") }}
           </div>
         </div>
-        <div class="col-md-4">
-          <h4>Monthly Expenses</h4>
-          <div class="form-group row">
-            <label for="maintenance" class="col-md-8 col-form-label">Maintenance</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.maintenance(id="maintenance", class="form-control", placeholder="Maintenance") }}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="hoa" class="col-md-8 col-form-label">Home Owners Association</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.hoa(id="hoa", class="form-control", placeholder="HOA") }}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="water" class="col-md-8 col-form-label">Water</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.water(id="water", class="form-control", placeholder="Water") }}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="garbage" class="col-md-8 col-form-label">Garbage</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.garbage(id="garbage", class="form-control", placeholder="Garbage") }}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="gas" class="col-md-8 col-form-label">Gas</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.gas(id="gas", class="form-control", placeholder="Gas") }}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="electricity" class="col-md-8 col-form-label">Electricity</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.electricity(id="electricity", class="form-control", placeholder="Electricity") }}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="other" class="col-md-8 col-form-label">Other</label>
-            <div class="input-group col-md-4">
-              <span class="input-group-addon">$</span>
-              {{ form.other(id="other", class="form-control", placeholder="Electricity") }}
-            </div>
+        <div class="form-group">
+          <label for="interestRate">Interest Rate</label>
+          <div class="input-group">
+            {{ form.interestRate(id="interestRate", class="form-control", placeholder="Interest Rate", maxlength=255, required="true") }}
+            <span class="input-group-addon">%</span>
           </div>
         </div>
-      </div>
+        <h4>Income</h4>
+        <button id="add-unit" class="btn btn-primary" type="button">Add</button>
+        <div id="units">
+          <!-- Will be appended to based upon MustacheJS logic -->
+        </div>
+        <div class="form-group row">
+          <label for="vacancyRate" class="col-md-8 col-form-label">Vacancy %</label>
+          <div class="input-group col-md-4">
+            {{ form.vacancyRate(id="vacancyRate", class="form-control", placeholder="Vacancy %", maxlength=3) }}
+            <span class="input-group-addon">%</span>
+          </div>
+        </div>
+        <h4>General Expenses</h4>
+        <div class="form-group row">
+          <label for="taxes" class="col-md-8 col-form-label">Annual Taxes</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.taxes(id="taxes", class="form-control", placeholder="Taxes") }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="insurancePremiums" class="col-md-8 col-form-label">Insurance Premiums</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.insurancePremiums(id="insurancePremiums", class="form-control", placeholder="Premiums") }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="propertyManagementFee" class="col-md-8 col-form-label">Property Management Fee</label>
+          <div class="input-group col-md-4">
+            {{ form.propertyManagementFee(id="propertyManagementFee", class="form-control", placeholder="10", maxlength=3) }}
+            <span class="input-group-addon">%</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="capEx" class="col-md-8 col-form-label">Capital Expenditure Reserves</label>
+          <div class="input-group col-md-4">
+            {{ form.capEx(id="capEx", class="form-control", placeholder="Cap Ex", maxlength=3) }}
+            <span class="input-group-addon">%</span>
+          </div>
+        </div>
+        <h4>Monthly Expenses</h4>
+        <div class="form-group row">
+          <label for="maintenance" class="col-md-8 col-form-label">Maintenance</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.maintenance(id="maintenance", class="form-control", placeholder="Maintenance") }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="hoa" class="col-md-8 col-form-label">Home Owners Association</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.hoa(id="hoa", class="form-control", placeholder="HOA") }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="water" class="col-md-8 col-form-label">Water</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.water(id="water", class="form-control", placeholder="Water") }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="garbage" class="col-md-8 col-form-label">Garbage</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.garbage(id="garbage", class="form-control", placeholder="Garbage") }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="gas" class="col-md-8 col-form-label">Gas</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.gas(id="gas", class="form-control", placeholder="Gas") }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="electricity" class="col-md-8 col-form-label">Electricity</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.electricity(id="electricity", class="form-control", placeholder="Electricity") }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="other" class="col-md-8 col-form-label">Other</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon">$</span>
+            {{ form.other(id="other", class="form-control", placeholder="Electricity") }}
+          </div>
+        </div>
+
 
 
 
 
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
-  </div>
 </div>
 
+
+<script id="unitForm" type="text/template">
+  {% raw %}
+    {{#units}}
+    <div class="form-group row">
+      <label for="unit-1-rent" class="col-md-8 col-form-label">Unit {{unitNumber}} Rent</label>
+      <div class="input-group col-md-4">
+        <span class="input-group-addon">$</span>
+        <input type="text" class="form-control" id="{{formName}}-{{id}}-{{fieldName}}" placeholder="Rent per month" value={{value}}>
+      </div>
+    </div>
+    {{/units}}
+  {% endraw %}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+<script src="{{ url_for('static', filename='js/templates/unitForm.js') }}"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+  var data = {
+    units: [
+      {% for unit in form.units %}
+        {
+          "id": {{ loop.index - 1 }},
+          "unitNumber": {{ loop.index }},
+          "formName": "unit",
+          "fieldName": "rent",
+          "value": "{{ unit.rent.value }}"
+        }{% if loop.index != form.units|length %},{% endif %}
+      {% endfor %}
+  ]};
+  generateUnitForm(data);
+
+  $("#add-unit").click( function() {
+    addUnitToForm();
+  });
+});
+</script>
 {% endblock %}

@@ -26,7 +26,6 @@ from app.web.models import role
 from app.web.models import address
 from app.web.models import property as propertyModel
 
-
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, user.User, role.Role)
 security = Security(app, user_datastore)
@@ -44,6 +43,7 @@ class ReturnView(BaseView):
 
 admin.add_view(ModelView(user.User, db.session))
 admin.add_view(ModelView(propertyModel.Property, db.session))
+admin.add_view(ModelView(address.Address, db.session))
 admin.add_view(ReturnView(name="Exit",endpoint="return"))
 
 if not app.debug and os.environ.get('HEROKU') is None:

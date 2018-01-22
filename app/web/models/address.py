@@ -12,13 +12,17 @@ class Address(baseModel.Base):
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'))
     property = db.relationship("Property", back_populates="address")
 
-    # User Name
+    # Physical Address
     addressLine1    = db.Column(db.String(255),  nullable=False)
     addressLine2    = db.Column(db.String(255),  nullable=True)
     addressLine3    = db.Column(db.String(255),  nullable=True)
     city            = db.Column(db.String(255),  nullable=False)
     state           = db.Column(db.String(255),  nullable=False)
     postalCode      = db.Column(db.String(255),  nullable=False)
+
+    # Geocoded Coordinates
+    longitude = db.Column(db.Numeric(18,13))
+    latitude = db.Column(db.Numeric(15,13))
 
 
 
