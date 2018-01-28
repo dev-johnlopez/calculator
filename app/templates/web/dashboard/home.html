@@ -1,4 +1,4 @@
-{% extends "body.html" %}
+{% extends "layouts/base.html" %}
 {% block content %}
 <div class="container-fluid">
   <div class="row">
@@ -17,8 +17,8 @@
             <td>{{ property.address }}</td>
             <td>
               <div class="btn-group" role="group">
-                <button type="button" class="btn btn-sm btn-outline-primary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                <a href="{{ url_for('deal.view', property_id=property.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+                <a href="{{ url_for('deal.delete', property_id=property.id) }}" class="btn btn-sm btn-outline-danger">Delete</a>
               </div>
             </td>
           </tr>

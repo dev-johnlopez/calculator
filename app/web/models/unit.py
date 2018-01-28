@@ -7,7 +7,7 @@ class Unit(baseModel.Base):
 
     __tablename__ = 'unit'
 
-    income = db.Column(db.Integer)
+    income = db.Column(db.Integer, default=0)
 
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'),
         nullable=False)

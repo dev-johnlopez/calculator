@@ -1,5 +1,4 @@
-# Import the database object (db) from the main application module
-# We will define this inside /app/__init__.py in the next sections.
+
 from app import db
 from sqlalchemy.ext.declarative import declared_attr
 from flask_security import current_user

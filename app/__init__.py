@@ -9,7 +9,7 @@ from flask_admin.contrib.sqla import ModelView
 
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object(os.environ.get('APP_SETTINGS') or 'config.DevelopmentConfig')
 
 # Setup DB
 db = SQLAlchemy(app)
@@ -62,3 +62,13 @@ if os.environ.get('HEROKU') is not None:
     app.logger.addHandler(stream_handler)
     app.logger.setLevel(logging.INFO)
     app.logger.info('microblog startup')
+
+import locale
+locale.setlocale( locale.LC_ALL, '' )
+@app.template_filter('currency')
+def currency_filter(s):
+    return locale.currency( s, grouping=True )
+
+@app.template_filter('percent')
+def percent_filter(s):
+    return '%s%%' % s

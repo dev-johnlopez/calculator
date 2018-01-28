@@ -1,0 +1,59 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="property-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#summary" role="tab">Summary</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#financials" role="tab">Financials</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#property_info" role="tab">Property Info</a>
+      </li>
+    </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="summary" role="tabpanel">
+      <div class="row">
+        {% include 'web/deal/summary.html' %}
+      </div>
+      <div class="row">
+        {% include 'web/deal/expenses.html' %}
+      </div>
+    </div>
+    <div class="tab-pane fade container" id="financials" role="tabpanel">
+      <div class="row">
+        {% include 'web/deal/financials.html' %}
+      </div>
+    </div>
+    <div class="tab-pane fade" id="property_info" role="tabpanel">
+      <div class="row">
+        {% include 'web/deal/property_info.html' %}
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<script src="{{ url_for('static', filename='js/util/map.js') }}"></script>
+<script>
+  function initMap() {
+    initialize({{ property.address.latitude }}, {{ property.address.longitude }});
+  }
+  </script>
+  <script>
+  $( document ).ready(function() {
+    $("#property-tabs a").click(function (e) {
+      e.preventDefault()
+      $(this).tab("show")
+    });
+  });
+
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5s3vnge5cxHYZXDMekd2-6y6RRC3h_k4&callback=initMap"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+{% endblock %}

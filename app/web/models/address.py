@@ -28,6 +28,8 @@ class Address(baseModel.Base):
 
 
     # New instance instantiation procedure
+    # TODO - https://parserator.datamade.us/usaddress - address standardization
+    # TODO - Do geocoding in init function
     #def __init__(self, addressLine1, addressLine2, addressLine3, city, state, postalCode):
     #    self.addressLine1 = addressLine1
     #    self.addressLine2 = addressLine2

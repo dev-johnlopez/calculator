@@ -6,6 +6,7 @@ from app.web.forms.deal import DealForm
 from app.web.forms.unit import UnitForm
 from app.web.models.address import Address
 from app.web.models.property import Property
+from app.web.models.unit import Unit
 from app.web.util.geocode import get_google_results
 deal = Blueprint('deal', __name__, template_folder="web/deal", url_prefix='/deal')
 
@@ -15,18 +16,52 @@ deal = Blueprint('deal', __name__, template_folder="web/deal", url_prefix='/deal
 def create():
     form = DealForm()
     if form.validate_on_submit():
-        createDealFromForm(form)
+        handleDealForm(None, form)
         return redirect(url_for('dashboard.index'))
-    form.units.append_entry(UnitForm())
+    #if(len(form.units) == 0):
+        #unitForm = UnitForm()
+        #unitForm.income.data = 0
+        #form.units.append_entry(unitForm)
     return render_template('web/deal/create.html',
                            title='Home',
                            form=form)
+@deal.route('/<property_id>/view', methods=['GET', 'POST'])
+@login_required
+def view(property_id):
+    property = Property.query.filter_by(id=property_id).first()
+    form = DealForm()
+    if form.validate_on_submit():
+        form.populate_obj(property)
+        db.session.add(property)
+        db.session.commit()
+        #handleDealForm(property, form)
+    form = DealForm(obj=property)
+    #form.loadFormFromProperty(property)
+    return render_template('web/deal/view.html',
+                           title='View Deal',
+                           property=property,
+                           form=form)
+
+@deal.route('/<property_id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete(property_id):
+    property = Property.query.filter_by(id=property_id).first()
+    for unit in property.units:
+        db.session.delete(unit)
+    db.session.delete(property)
+    db.session.commit()
+    return redirect(url_for('dashboard.index'))
 
 
 # Utility functions
-def createDealFromForm(form):
-    #create address
-    address = Address()
+def handleDealForm(property, form):
+    address = None
+    if property is None:
+        property = Property()
+        address = Address()
+        property.address = address
+
+    address = property.address
     address.addressLine1 = form.address.addressLine1.data
     address.addressLine2 = form.address.addressLine2.data
     address.addressLine3 = form.address.addressLine3.data
@@ -40,18 +75,19 @@ def createDealFromForm(form):
     address.longitude = geoInfo['longitude']
 
     #create deal
-    property = Property()
-    property.address = address
     property.listPrice    = form.listPrice.data
     property.purchasePrice    = form.purchasePrice.data
     property.downPayment    = form.downPayment.data
     property.interestRate    = form.interestRate.data
 
     #array of units
+    for unit in property.units:
+        db.session.delete(unit)
+
     property.units = []
-    for unit in form.units:
+    for unitForm in form.units:
         unit = Unit()
-        unit.income = unit.data
+        unit.income = unitForm.income.data
         property.units.append(unit)
 
     #Average time of no revenue

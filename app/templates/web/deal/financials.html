@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-header">
+    Financials
+  </div>
+  <div class="card-block">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row">Mortgage Payment</th>
+          <td>{{ property.getMonthlyMortgagePayment()|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">PITI</th>
+          <td>{{ property.getMonthlyPITI()|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Scheduled Income</th>
+          <td>{{ property.getMonthlyIncome()|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Expenses</th>
+          <td>{{ property.getTotalMonthlyExpenses()|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Gross Rent Multiplier</th>
+          <td>{{ property.getGrossRentMultiplier()|percent }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Gross Scheduled Income</th>
+          <td>{{ property.getAnnualGrossScheduledIncome(0)|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Vacancy &amp; Credit Loss</th>
+          <td>{{ property.getMonthlyVacancyAndCreditLoss()|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Gross Operating Income</th>
+          <td>{{ property.getGrossOperatingIncome()|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Net Operating Income</th>
+          <td>{{ property.getNetOperatingIncome()|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Est. Net Operating Income</th>
+          <td>{{ property.getEstNetOperatingIncomeFromCapRate(property.getCapitalizationRate())|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Cap Rate</th>
+          <td>{{ property.getCapitalizationRate()|percent }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Market Value from Cap Rate</th>
+          <td>{{ property.getValueFromCapitalizationRate()|currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Net Income Multiplier</th>
+          <td>{{ property.getNetIncomeMultiplier()|percent}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Present Value from NIM</th>
+          <td>{{ property.getPresentValueFromNIM()|currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -45,7 +45,9 @@ class FinancialCalculator():
     # Income to Value ratio
     @staticmethod
     def getGrossRentMultiplier(marketValue, scheduledIncome):
-        return marketValue/scheduledIncome
+        if marketValue is None or marketValue == 0 or scheduledIncome is None or scheduledIncome == 0:
+            return 0
+        return marketValue/scheduledIncome/100
 
     @staticmethod
     def getMarketValue(grossRentMultiplier, scheduledIncome):
@@ -86,6 +88,8 @@ class FinancialCalculator():
 
     @staticmethod
     def getNetOperatingIncomeFromCapRate(value, capRate):
+        if value is None or capRate is None or capRate == 0:
+            return 0
         return value * capRate
 
     # Capitalization rate is the rate at which you discount
@@ -96,10 +100,14 @@ class FinancialCalculator():
     # Operating Income (NOI)
     @staticmethod
     def getCapitalizationRate(netOperatingIncome, value):
+        if netOperatingIncome is None or value is None or value == 0:
+            return 0
         return netOperatingIncome / value
 
     @staticmethod
     def getValueFromCapitalizationRate(netOperatingIncome, capRate):
+        if netOperatingIncome is None or capRate == 0:
+            return 0
         return netOperatingIncome / capRate
 
     # Net Income Multiple represents what a typical investor
@@ -107,6 +115,8 @@ class FinancialCalculator():
 
     @staticmethod
     def getNetIncomeMultiplier(capRate):
+        if capRate is None or capRate == 0:
+            return 0
         return 1 / capRate
 
     @staticmethod

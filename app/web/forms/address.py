@@ -70,3 +70,11 @@ class AddressForm(FlaskForm):
 
     def __init__(self, csrf_enabled=False, *args, **kwargs):
         super(AddressForm, self).__init__(csrf_enabled=csrf_enabled, *args, **kwargs)
+
+    def loadFormFromAddress(self, address):
+        self.addressLine1.data = address.addressLine1
+        self.addressLine2.data = address.addressLine2
+        self.addressLine3.data = address.addressLine3
+        self.city.data = address.city
+        self.state.data = address.state
+        self.postalCode.data = address.postalCode

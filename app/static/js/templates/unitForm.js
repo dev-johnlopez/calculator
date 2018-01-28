@@ -10,13 +10,14 @@ function generateUnitForm(data) {
 
 function addUnit() {
   var currentNumberOfUnits = $("#units > div").length;
+  alert(currentNumberOfUnits);
   var data = {
     units: [
       {
         "id": currentNumberOfUnits,
         "unitNumber" : currentNumberOfUnits + 1,
-        "formName": "unit",
-        "fieldName": "rent",
+        "formName": "units",
+        "fieldName": "income",
         "value" : ""
       }
   ]};
@@ -24,5 +25,5 @@ function addUnit() {
 }
 
 function addUnitToForm() {
-  addUnit()
+  addUnit();
 }
