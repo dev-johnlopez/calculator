@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <th scope="row">Gross Scheduled Income</th>
-          <td>{{ property.getAnnualGrossScheduledIncome(0)|currency }}</td>
+          <td>{{ property.getGrossScheduledIncome(0)|currency }}</td>
         </tr>
         <tr>
           <th scope="row">Vacancy &amp; Credit Loss</th>
@@ -43,7 +43,7 @@
         </tr>
         <tr>
           <th scope="row">Est. Net Operating Income</th>
-          <td>{{ property.getEstNetOperatingIncomeFromCapRate(property.getCapitalizationRate())|currency }}</td>
+          <td>{{ property.getEstNetOperatingIncomeFromCapRate()|currency }}</td>
         </tr>
         <tr>
           <th scope="row">Cap Rate</th>

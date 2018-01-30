@@ -4,8 +4,6 @@ from flask import Flask
 from flask_testing import TestCase
 from flask_security import login_required, current_user, logout_user
 from app import app, db
-from app.web.models.property import Property
-from app.web.models.unit import Unit
 from app.web.models.user import User
 
 class BaseTestCase(TestCase):
@@ -15,15 +13,10 @@ class BaseTestCase(TestCase):
         return app
 
     def setUp(self):
+        #db.drop_all()
         db.create_all()
         db.session.add(User(email="ad@min.com", password="admin",active=True))
         db.session.commit()
-        with self.client:
-            login("ad@min.com", "admin")
-            #response = self.client.post('/login',
-            #                            data={'email': 'ad@min.com', 'password': 'admin'})
-            property = Property()
-            self.logout()
 
 
     def tearDown(self):
@@ -37,7 +30,7 @@ class BaseTestCase(TestCase):
         ), follow_redirects=True)
 
     def logout(self):
-        return self.app.get('/logout', follow_redirects=True)
+        return self.client.get('/logout', follow_redirects=True)
 
 if __name__ == '__main__':
     unittest.main()

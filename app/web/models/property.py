@@ -1,5 +1,6 @@
 # Import the database object (db) from the main application module
 from app import db
+from decimal import Decimal
 from app.web.models import baseModel, unit
 from app.web.util.calculations import FinancialCalculator
 from app.web.util.loan import LoanCalculator
@@ -37,167 +38,172 @@ class Property(baseModel.Base):
     electricity = db.Column(db.Integer, default=0)
     other = db.Column(db.Integer, default=0)
 
-    # New instance instantiation procedure
-    #def __init__(self, name, address):
-    #    self.name = name
-    #    self.address = address
-
     def __repr__(self):
         return '%s' % self.address
 
-    # Getter functions
+    #######################################################
+    ################### Getter functions ##################
+    #######################################################
 
     def getAddress(self):
         return self.address
 
     def getListPrice(self):
-        return self.listPrice
+        return Decimal(self.listPrice)
 
     def getPurchasePrice(self):
-        return self.purchasePrice
+        return Decimal(self.purchasePrice)
 
     def getTermLength(self):
         return self.termLength
 
     def getDownPayment(self):
-        return self.downPayment
+        if(self.downPayment is None):
+            return 0
+        return Decimal(self.downPayment)
 
     def getInterestRate(self):
-        return self.interestRate/100
+        if self.interestRate is None:
+            return 0
+        return Decimal(self.interestRate/100)
 
     def getUnits(self):
         return self.units
 
     def getVacancyRate(self):
-        return self.vacancyRate / 100
+        return Decimal(self.vacancyRate / 100)
 
     def getOccupancyRate(self):
-        return 1 - self.getVacancyRate()
+        return Decimal(1 - self.getVacancyRate())
 
     def getTaxes(self):
-        return self.taxes
+        return Decimal(self.taxes)
 
     def getInsurancePremiums(self):
-        return self.insurancePremiums
+        return Decimal(self.insurancePremiums)
 
     def getPropertyManagementFee(self):
-        return self.propertyManagementFee / 100
+        return Decimal(self.propertyManagementFee / 100)
 
     def getCapExReserves(self):
-        return self.capEx / 100
+        return Decimal(self.capEx / 100)
 
     def getMaintenance(self):
-        return self.maintenance
+        return Decimal(self.maintenance)
 
     def getHOA(self):
-        return self.hoa
+        return Decimal(self.hoa)
 
     def getWater(self):
-        return self.water
+        return Decimal(self.water)
 
     def getGarbage(self):
-        return self.garbage
+        return Decimal(self.garbage)
 
     def getGas(self):
-        return self.gas
+        return Decimal(self.gas)
 
     def getElectricity(self):
-        return self.electricity
+        return Decimal(self.electricity)
 
     def getOther(self):
-        return self.other
+        return Decimal(self.other)
+
+    def getMonthlyPropertyTax(self):
+        return Decimal(round(self.getTaxes() / 12,2))
+
+    def getMonthlyInsurancePremiumExpense(self):
+        return Decimal(round(self.getInsurancePremiums() / 12,2))
 
 
-    # Monthly Calculations
+    #######################################################
+    ################# Monthly Calculations ################
+    #######################################################
+
     def getMonthlyIncome(self):
         scheduledIncome = 0
         for unit in self.units:
            scheduledIncome += unit.income
-        return scheduledIncome
+        return Decimal(round(scheduledIncome,2))
 
     def getMonthlyMortgagePayment(self):
-        return LoanCalculator.getMortgagePayment(self.getPurchasePrice(), self.getTermLength(), self.getInterestRate())
+        return Decimal(round(LoanCalculator.getMortgagePayment(self.getPurchasePrice() - self.getDownPayment(), self.getTermLength(), self.getInterestRate()),2))
 
     def getMonthlyPITI(self):
-        return LoanCalculator.getPITI(self.getMonthlyMortgagePayment(), self.getTaxes(), self.getInsurancePremiums())
+        return Decimal(round(LoanCalculator.getPITI(self.getMonthlyMortgagePayment(), self.getTaxes(), self.getInsurancePremiums()),2))
 
     def getMonthlyPropertyManagementExpense(self):
-        return self.getMonthlyIncome() * self.getPropertyManagementFee()
+        return Decimal(round(self.getMonthlyIncome() * self.getPropertyManagementFee(),2))
 
     def getMonthlyCapExReserveExpense(self):
-        return self.getMonthlyIncome() * self.getCapExReserves()
+        return Decimal(round(self.getMonthlyIncome() * self.getCapExReserves(),2))
 
     def getMonthlyVacancyAndCreditLoss(self):
-        return self.getMonthlyIncome() * self.getVacancyRate()
+        return Decimal(round(self.getAnnualVacancyAndCreditLoss()/12,2))
 
     def getMonthlyOperatingExpenses(self):
-        annualExpenses = self.getTaxes() + self.getInsurancePremiums()
-        propertyManagementExpense = self.getMonthlyPropertyManagementExpense()
-        reserves = self.getMonthlyCapExReserveExpense() + self.getMonthlyVacancyAndCreditLoss()
-        return self.getMaintenance() + self.getHOA() + self.getWater() + self.getGarbage() + self.getGas() + self.getElectricity() + self.getOther() + annualExpenses/12 + propertyManagementExpense + reserves
+        return Decimal(round(self.getMonthlyPropertyManagementExpense()
+                + self.getMaintenance()
+                + self.getHOA()
+                + self.getWater()
+                + self.getGarbage()
+                + self.getGas()
+                + self.getElectricity()
+                + self.getOther()
+                + self.getMonthlyPropertyTax()
+                + self.getMonthlyInsurancePremiumExpense(),2))
 
     def getTotalMonthlyExpenses(self):
-        return self.getMonthlyOperatingExpenses() + self.getMonthlyMortgagePayment()
+        return Decimal(round(self.getMonthlyOperatingExpenses() + self.getMonthlyMortgagePayment() + self.getMonthlyCapExReserveExpense() + self.getMonthlyVacancyAndCreditLoss(),2))
 
-    # Annual Calculations
+    #######################################################
+    ################# Annual Calculations #################
+    #######################################################
+
     def getAnnualIncome(self):
-        return self.getMonthlyIncome() * 12
+        return Decimal(round(self.getMonthlyIncome() * 12,2))
 
     def getAnnualMortgagePayments(self):
-        return self.getMonthlyMortgagePayment() * 12
+        return Decimal(round(self.getMonthlyMortgagePayment() * 12,2))
 
     def getAnnualPITI(self):
-        return self.getMonthlyPITI() * 12
+        return Decimal(round(self.getMonthlyPITI() * 12,2))
 
     def getAnnualPropertyManagementExpense(self):
-        return self.getMonthlyPropertyManagementExpense() * 12
+        return Decimal(round(self.getMonthlyPropertyManagementExpense() * 12,2))
 
     def getAnnualCapExReserveExpense(self):
-        return self.getMonthlyCapExReserveExpense() * 12
+        return Decimal(round(self.getMonthlyCapExReserveExpense() * 12,2))
 
     def getAnnualOperatingExpenses(self):
-        return self.getMonthlyOperatingExpenses() * 12
+        return Decimal(round(self.getMonthlyOperatingExpenses() * 12,2))
 
     def getTotalAnnualExpenses(self):
-        return self.getTotalMonthlyExpenses() * 12
+        return Decimal(round(self.getTotalMonthlyExpenses() * 12,2))
+
+    def getAnnualVacancyAndCreditLoss(self):
+        return Decimal(round(FinancialCalculator.getVacancyAndCreditLoss(self.getGrossScheduledIncome(0), self.getVacancyRate()),2))
+
+    #######################################################
+    ################# General Calculations ################
+    #######################################################
+
+    # Income to Value ratio
+    def getGrossRentMultiplier(self):
+        return Decimal(round(FinancialCalculator.getGrossRentMultiplier(self.getPurchasePrice(), self.getGrossScheduledIncome(0)),2))
+
+    def getMarketValue(self):
+        return Decimal(round(FinancialCalculator.getMarketValue(self.getGrossRentMultiplier(), self.getGrossScheduledIncome(0)),2))
 
     # Total rent payable for that year under current contracts
     # for occupied space + Total potential rent during vacancies
     # Note: Ignores vacancy. Used to calculate maximum revenue for a getNumberOfYearsForDoubledInvestment
-    def getAnnualGrossScheduledIncome(self, totalPotentialRent):
+    def getGrossScheduledIncome(self, totalPotentialRent):
         return FinancialCalculator.getGrossScheduledIncome(self.getAnnualIncome(), totalPotentialRent)
-
-    # General Calculations
-    # TODO: Validate if the remaining should be monthly vs annually
-
-    def lengthUntilDoubledInvestment(growthRate, exactMatch):
-        return FinancialCalculator.getNumberOfYearsForDoubledInvestment(growthRate, exactMatch)
-
-    def getFutureValue(principal, periodicRate, numPeriods):
-        return FinancialCalculator.getFutureValue(princiapl, periodicRate, numPeriods)
-
-    def getAmount(principal, rate, time):
-        return FinancialCalculator.getAmount(principal, rate, time)
-
-    # Present Value of a property - need to look at the book
-    # to better document
-    def getPresentValue(interestRate, numPeriods):
-        return FinancialCalculator.getPresentValue(self.getPurchasePrice(), interestRate, numPeriods)
-
-    # Income to Value ratio
-    def getGrossRentMultiplier(self):
-        return FinancialCalculator.getGrossRentMultiplier(self.getPurchasePrice(), self.getMonthlyIncome())
-
-    def getMarketValue(self):
-        return FinancialCalculator.getMarketValue(self.getGrossRentMultiplier(), self.getScheduledIncome())
-
-
-    def getAnnualVacancyAndCreditLoss(self):
-        return FinancialCalculator.getVacancyAndCreditLoss(self.getAnnualGrossScheduledIncome(0), self.getVacancyRate())
 
     # How to calculate the actual income of a property
     def getGrossOperatingIncome(self):
-        return FinancialCalculator.getGrossOperatingIncome(self.getAnnualGrossScheduledIncome(0), self.getAnnualVacancyAndCreditLoss())
+        return FinancialCalculator.getGrossOperatingIncome(self.getGrossScheduledIncome(0), self.getAnnualVacancyAndCreditLoss())
 
     # Property's income after reducing operating expenses,
     # vacancy, etc.
@@ -205,10 +211,9 @@ class Property(baseModel.Base):
     # Loan payments, depreciation, and capital expenditures
     # are not considered operating expenses.
     def getNetOperatingIncome(self):
-        #TODO - calculate expenses
         return FinancialCalculator.getNetOperatingIncome(self.getGrossOperatingIncome(), self.getAnnualOperatingExpenses())
 
-    def getEstNetOperatingIncomeFromCapRate(self, capRate):
+    def getEstNetOperatingIncomeFromCapRate(self):
         return FinancialCalculator.getNetOperatingIncomeFromCapRate(self.getPurchasePrice(), self.getCapitalizationRate())
 
     # Capitalization rate is the rate at which you discount
@@ -218,7 +223,7 @@ class Property(baseModel.Base):
     # between a property's value and its Net
     # Operating Income (NOI)
     def getCapitalizationRate(self):
-        return FinancialCalculator.getCapitalizationRate(self.getNetOperatingIncome(), self.getPurchasePrice())
+        return Decimal(FinancialCalculator.getCapitalizationRate(self.getNetOperatingIncome(), self.getPurchasePrice()))
 
     def getValueFromCapitalizationRate(self):
         return FinancialCalculator.getValueFromCapitalizationRate(self.getNetOperatingIncome(), self.getCapitalizationRate())
@@ -226,10 +231,10 @@ class Property(baseModel.Base):
     # Net Income Multiple represents what a typical investor
     # would pay for each dollar of NOI.
     def getNetIncomeMultiplier(self):
-        return FinancialCalculator.getNetIncomeMultiplier(self.getCapitalizationRate())
+        return Decimal(round(FinancialCalculator.getNetIncomeMultiplier(self.getCapitalizationRate()),2))
 
     def getPresentValueFromNIM(self):
-        return FinancialCalculator.getPresentValueFromNIM(self.getNetIncomeMultiplier(), self.getNetOperatingIncome())
+        return Decimal(round(FinancialCalculator.getPresentValueFromNIM(self.getNetIncomeMultiplier(), self.getNetOperatingIncome()),2))
 
     # Taxable income
     def getTaxableIncome(self, netOperatingIncome, mortgageInterest,

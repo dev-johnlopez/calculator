@@ -47,7 +47,7 @@ class FinancialCalculator():
     def getGrossRentMultiplier(marketValue, scheduledIncome):
         if marketValue is None or marketValue == 0 or scheduledIncome is None or scheduledIncome == 0:
             return 0
-        return marketValue/scheduledIncome/100
+        return marketValue/scheduledIncome
 
     @staticmethod
     def getMarketValue(grossRentMultiplier, scheduledIncome):

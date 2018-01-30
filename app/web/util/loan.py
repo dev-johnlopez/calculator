@@ -13,11 +13,15 @@ class LoanCalculator():
     @staticmethod
     def getMortgagePayment(loanAmount, numYears, interestRate):
         interestRate = interestRate/12
+        if numYears is None :
+            numYears = 0
         numMonths = numYears*12
         numerator = loanAmount * (interestRate * (1 + interestRate) ** numMonths)
         denominator = ((1 + interestRate) ** numMonths - 1)
-        return numerator/denominator
+        if denominator == 0:
+            return 0
+        return round(numerator/denominator,2)
 
     @staticmethod
     def getPITI(mortgagePayment, annualTaxes, annualInsurance):
-        return mortgagePayment + annualTaxes/12 + annualInsurance/12
+        return round((mortgagePayment * 12 + annualTaxes + annualInsurance)/12,2)
