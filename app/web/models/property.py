@@ -12,7 +12,7 @@ class Property(baseModel.Base):
     __tablename__ = 'property'
 
     address = db.relationship("Address", uselist=False, back_populates="property")
-    listPrice    = db.Column(db.Integer)
+    askingPrice    = db.Column(db.Integer)
     purchasePrice    = db.Column(db.Integer)
     downPayment    = db.Column(db.Integer)
     interestRate    = db.Column(db.Numeric(6,4))
@@ -48,8 +48,8 @@ class Property(baseModel.Base):
     def getAddress(self):
         return self.address
 
-    def getListPrice(self):
-        return Decimal(self.listPrice)
+    def getaskingPrice(self):
+        return Decimal(self.askingPrice)
 
     def getPurchasePrice(self):
         return Decimal(self.purchasePrice)

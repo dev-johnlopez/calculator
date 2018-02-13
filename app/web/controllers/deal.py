@@ -18,13 +18,32 @@ def create():
     if form.validate_on_submit():
         handleDealForm(None, form)
         return redirect(url_for('dashboard.index'))
-    #if(len(form.units) == 0):
-        #unitForm = UnitForm()
-        #unitForm.income.data = 0
-        #form.units.append_entry(unitForm)
     return render_template('web/deal/create.html',
                            title='Home',
                            form=form)
+
+@deal.route('/create/sfr', methods=['GET', 'POST'])
+@login_required
+def createSFR():
+    form = DealForm()
+    if form.validate_on_submit():
+        handleDealForm(None, form)
+        return redirect(url_for('dashboard.index'))
+    return render_template('web/deal/create.html',
+                           title='Home',
+                           form=form)
+
+@deal.route('/create/multiunit', methods=['GET', 'POST'])
+@login_required
+def createMultiUnit():
+    form = DealForm()
+    if form.validate_on_submit():
+        handleDealForm(None, form)
+        return redirect(url_for('dashboard.index'))
+    return render_template('web/deal/create.html',
+                           title='Home',
+                           form=form)
+
 @deal.route('/<property_id>/view', methods=['GET', 'POST'])
 @login_required
 def view(property_id):
@@ -71,11 +90,12 @@ def handleDealForm(property, form):
 
     #geocode address
     geoInfo = get_google_results(address)
-    address.latitude = geoInfo['latitude']
-    address.longitude = geoInfo['longitude']
+    if geoInfo is not None:
+        address.latitude = geoInfo['latitude']
+        address.longitude = geoInfo['longitude']
 
     #create deal
-    property.listPrice    = form.listPrice.data
+    property.askingPrice    = form.askingPrice.data
     property.purchasePrice    = form.purchasePrice.data
     property.downPayment    = form.downPayment.data
     property.interestRate    = form.interestRate.data

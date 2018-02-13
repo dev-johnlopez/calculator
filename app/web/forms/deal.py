@@ -12,7 +12,7 @@ class DealForm(FlaskForm):
     #                                        ("commercial", "Commercial")],
     #    validators=[DataRequired()])
     address = FormField(AddressForm)
-    listPrice = IntegerField('listPrice', validators=[Optional()])
+    askingPrice = IntegerField('askingPrice', validators=[Optional()])
     purchasePrice = IntegerField('purchasePrice', validators=[Optional()])
     downPayment = IntegerField('downPayment', validators=[Optional()])
     #financedAmount = IntegerField('financedAmount', validators=[Optional()])
@@ -46,7 +46,7 @@ class DealForm(FlaskForm):
             unitForm = UnitForm(obj=unit)
             self.units.append(unitForm)
 
-        self.listPrice.data = property.listPrice
+        self.askingPrice.data = property.askingPrice
         self.purchasePrice.data = property.purchasePrice
         self.downPayment.data = property.downPayment
         #self.financedAmount = property.financedAmount

@@ -17,10 +17,13 @@ db = SQLAlchemy(app)
 # Setup Blueprints
 from app.web.controllers.dashboard import dashboard
 from app.web.controllers.deal import deal
+from app.web.controllers.settings import settings
 app.register_blueprint(dashboard)
 app.register_blueprint(deal)
+app.register_blueprint(settings)
 
 
+from app.web.models import userSettings
 from app.web.models import user
 from app.web.models import role
 from app.web.models import address
@@ -44,6 +47,7 @@ class ReturnView(BaseView):
 admin.add_view(ModelView(user.User, db.session))
 admin.add_view(ModelView(propertyModel.Property, db.session))
 admin.add_view(ModelView(address.Address, db.session))
+admin.add_view(ModelView(role.Role, db.session))
 admin.add_view(ReturnView(name="Exit",endpoint="return"))
 
 if not app.debug and os.environ.get('HEROKU') is None:

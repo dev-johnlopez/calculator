@@ -28,7 +28,7 @@
       <p class="card-text">Taxes: {{ (property.taxes)|currency }}</p>
       <p class="card-text">Insurance: {{ (property.insurancePremiums)|currency }}</p>
       <p class="card-text">Property Management: {{ property.getAnnualPropertyManagementExpense()|currency }}</p>
-      <p class="card-text">CapEx Reserves: {{ (property.capEx * property.getAnnualIncome())|currency }}</p>
+      <p class="card-text">CapEx Reserves: {{ property.getAnnualCapExReserveExpense()|currency }}</p>
       <p class="card-text">Vacancy and Credit Loss: {{ property.getAnnualVacancyAndCreditLoss()|currency }}</p>
       <p class="card-text">Maintenance: {{ (property.maintenance * 12)|currency }}</p>
       <p class="card-text">HOA: {{ (property.hoa * 12)|currency }}</p>
