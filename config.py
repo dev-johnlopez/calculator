@@ -32,7 +32,7 @@ class BaseConfig(object):
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 465
     MAIL_USERNAME = 'johnny.lopez617@gmail.com'
-    MAIL_PASSWORD = 'Saintviator1??'
+    MAIL_PASSWORD = ''
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
 

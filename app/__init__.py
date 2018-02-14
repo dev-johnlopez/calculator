@@ -29,6 +29,10 @@ from app.web.models import role
 from app.web.models import address
 from app.web.models import property as propertyModel
 
+# API Setup
+from flask.ext.restful import Api, Resource
+api = Api(app)
+
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, user.User, role.Role)
 security = Security(app, user_datastore)
