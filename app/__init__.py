@@ -8,8 +8,12 @@ from flask_admin import Admin, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 
 
+
 app = Flask(__name__)
 app.config.from_object(os.environ.get('APP_SETTINGS') or 'config.DevelopmentConfig')
+
+from flask_cors import CORS
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Setup DB
 db = SQLAlchemy(app)
