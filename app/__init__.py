@@ -42,6 +42,7 @@ mail = Mail(app)
 
 #Setup Admin
 admin = Admin(app, name='RE Analyzer', template_mode='bootstrap3')
+admin.add_view(ModelView(User, db.session))
 
 class ReturnView(BaseView):
     @expose('/')

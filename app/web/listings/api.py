@@ -2,6 +2,7 @@ from app import api, db
 from app.web.listings.model import Listing
 from flask.ext.restful import Api, Resource
 from flask.ext.restful import fields, marshal_with
+#flask_restful.fields
 
 
 
