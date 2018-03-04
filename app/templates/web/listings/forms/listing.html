@@ -1,0 +1,33 @@
+<form method="post">
+  {{ form.hidden_tag() }}
+    {% include 'web/listings/forms/address.html' %}
+    <div class="form-group">
+      <label for="askingPrice">List Price</label>
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+        {{ form.listPrice(class="form-control", placeholder="Asking Price", maxlength=255, required=true) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">ARV</label>
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+        {{ form.arv(class="form-control", placeholder="ARV", maxlength=255) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Rehab Est.</label>
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+        {{ form.rehabCost(class="form-control", placeholder="Rehab Est.", maxlength=255) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Monthly Income</label>
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+        {{ form.income(class="form-control", placeholder="Income", maxlength=255) }}
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit Listing</button>
+</form>

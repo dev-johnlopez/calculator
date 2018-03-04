@@ -1,0 +1,33 @@
+<!-- ========== Left Sidebar Start ========== -->
+
+<div class="left side-menu">
+    <div class="sidebar-inner slimscrollleft">
+        <!--- Divider -->
+        <div id="sidebar-menu">
+            <ul>
+                <!-- DASHBOARD -->
+                <li>
+                    <a href="index.html" class="waves-effect waves-primary"><i
+                            class="ti-home"></i><span> Dashboard </span></a>
+                </li>
+                <!-- END DASHBOARD -->
+
+                <!-- LISTINGS -->
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="mdi mdi-format-list-bulleted"></i> <span> Listings </span>
+                        <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('listings.all') }}">View All</a></li>
+                        <li><a href="{{ url_for('listings.create') }}">Add Listing</a></li>
+                    </ul>
+                </li>
+                <!-- END LISTINGS -->
+
+            </ul>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- Left Sidebar End -->

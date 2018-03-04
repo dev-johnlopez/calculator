@@ -2,7 +2,7 @@
 import unittest
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from app.web.models.role import Role
+from app.web.auth.models.role import Role
 import os
 
 from app import app, db

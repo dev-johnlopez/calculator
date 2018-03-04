@@ -1,34 +1,119 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<!-- Top Bar Start -->
+<div class="topbar">
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('dashboard.index') }}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          New...
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ url_for('deal.createSFR') }}">Single Family Residence</a>
-          <a class="dropdown-item" href="{{ url_for('deal.createMultiUnit') }}">Multi Unit</a>
+    <!-- LOGO -->
+    <div class="topbar-left">
+        <div class="text-center">
+            <a href="index.html" class="logo"><span>YOU'VE GOT DEALS</span></a>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-outline-success my-2 my-sm-0" href="{{ url_for('deal.create') }}">New Deal</a>
-      </li>
-    </ul>
-  </div>
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-      <a class="nav-link" href="{{ url_for('settings.index') }}">Settings</a>
-    </li>
-    <li class="nav-item active">
-      <a class="nav-link" href="{{ url_for_security('logout') }}">Logout</a>
-    </li>
-  </ul>
-</nav>
+    </div>
+
+    <!-- Button mobile view to collapse sidebar menu -->
+    <nav class="navbar-custom">
+
+        <ul class="list-inline float-right mb-0">
+
+            <li class="list-inline-item notification-list hide-phone">
+                <a class="nav-link waves-light waves-effect" href="#" id="btn-fullscreen">
+                    <i class="mdi mdi-crop-free noti-icon"></i>
+                </a>
+            </li>
+
+            <li class="list-inline-item notification-list">
+                <a class="nav-link right-bar-toggle waves-light waves-effect" href="#">
+                    <i class="mdi mdi-dots-horizontal noti-icon"></i>
+                </a>
+            </li>
+
+            <li class="list-inline-item dropdown notification-list">
+                <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
+                   aria-haspopup="false" aria-expanded="false">
+                    <i class="mdi mdi-bell noti-icon"></i>
+                    <span class="badge badge-pink noti-icon-badge">4</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg" aria-labelledby="Preview">
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="font-16"><span class="badge badge-danger float-right">5</span>Notification</h5>
+                    </div>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-success"><i class="mdi mdi-comment-account"></i></div>
+                        <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1 min ago</small></p>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-info"><i class="mdi mdi-account"></i></div>
+                        <p class="notify-details">New user registered.<small class="text-muted">1 min ago</small></p>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-danger"><i class="mdi mdi-airplane"></i></div>
+                        <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1 min ago</small></p>
+                    </a>
+
+                    <!-- All-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
+                        View All
+                    </a>
+
+                </div>
+            </li>
+
+            <li class="list-inline-item dropdown notification-list">
+                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                   aria-haspopup="false" aria-expanded="false">
+                    <img src="{{ url_for('static', filename='images/users/avatar-1.jpg') }}" alt="user" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="text-overflow"><small>Welcome ! John</small> </h5>
+                    </div>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="mdi mdi-account-star-variant"></i> <span>Profile</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="mdi mdi-settings"></i> <span>Settings</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="{{ url_for_security('logout') }}" class="dropdown-item notify-item">
+                        <i class="mdi mdi-logout"></i> <span>Logout</span>
+                    </a>
+
+                </div>
+            </li>
+
+        </ul>
+
+        <ul class="list-inline menu-left mb-0">
+            <li class="float-left">
+                <button class="button-menu-mobile open-left waves-light waves-effect">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+            </li>
+            <li class="hide-phone app-search">
+                <form role="search" class="">
+                    <input type="text" placeholder="Search..." class="form-control">
+                    <a href=""><i class="fa fa-search"></i></a>
+                </form>
+            </li>
+        </ul>
+
+    </nav>
+
+</div>
+<!-- Top Bar End -->

@@ -1,6 +1,6 @@
 # Import the database object (db) from the main application module
 from app import db
-from app.web.models import baseModel, property
+from app.web.common import baseModel
 
 
 # Define a User model
@@ -9,8 +9,8 @@ class Address(baseModel.Base):
     __tablename__ = 'address'
 
     #relationships
-    property_id = db.Column(db.Integer, db.ForeignKey('property.id'))
-    property = db.relationship("Property", back_populates="address")
+    listing_id = db.Column(db.Integer, db.ForeignKey('listing.id'))
+    listing = db.relationship("Listing", back_populates="address")
 
     # Physical Address
     addressLine1    = db.Column(db.String(255),  nullable=False)

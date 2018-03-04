@@ -15,26 +15,26 @@ app.config.from_object(os.environ.get('APP_SETTINGS') or 'config.DevelopmentConf
 db = SQLAlchemy(app)
 
 # Setup Blueprints
-from app.web.controllers.dashboard import dashboard
-from app.web.controllers.deal import deal
-from app.web.controllers.settings import settings
-app.register_blueprint(dashboard)
-app.register_blueprint(deal)
-app.register_blueprint(settings)
+from app.web.listings.controller import listings
+from app.web.common.controller import common
+app.register_blueprint(listings)
+app.register_blueprint(common)
 
 
-from app.web.models import userSettings
-from app.web.models import user
-from app.web.models import role
-from app.web.models import address
-from app.web.models import property as propertyModel
+from app.web.auth.models.role import Role
+from app.web.auth.models.user import User
+from app.web.listings.model import Listing
 
 # API Setup
-from flask.ext.restful import Api, Resource
+from flask.ext.restful import Api
 api = Api(app)
 
+from app.web.listings.api import ListingsAPI, ListingAPI
+api.add_resource(ListingsAPI, '/api/v1.0/listings', endpoint = 'listings')
+api.add_resource(ListingAPI, '/api/v1.0/listings/<int:id>', endpoint = 'listing')
+
 # Setup Flask-Security
-user_datastore = SQLAlchemyUserDatastore(db, user.User, role.Role)
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
 #Setup Mail
@@ -47,12 +47,6 @@ class ReturnView(BaseView):
     @expose('/')
     def index(self):
         return redirect(url_for('dashboard.index'))
-
-admin.add_view(ModelView(user.User, db.session))
-admin.add_view(ModelView(propertyModel.Property, db.session))
-admin.add_view(ModelView(address.Address, db.session))
-admin.add_view(ModelView(role.Role, db.session))
-admin.add_view(ReturnView(name="Exit",endpoint="return"))
 
 if not app.debug and os.environ.get('HEROKU') is None:
     import logging
@@ -73,6 +67,7 @@ if os.environ.get('HEROKU') is not None:
 
 import locale
 locale.setlocale( locale.LC_ALL, '' )
+
 @app.template_filter('currency')
 def currency_filter(s):
     return locale.currency( s, grouping=True )
@@ -80,3 +75,7 @@ def currency_filter(s):
 @app.template_filter('percent')
 def percent_filter(s):
     return '%s%%' % s
+
+#@app.errorhandler(404)
+#def page_not_found(e):
+#    return render_template('404.html'), 404

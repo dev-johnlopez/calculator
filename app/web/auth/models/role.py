@@ -1,6 +1,5 @@
 # Import the database object (db) from the main application module
 from app import db
-from app.web.models import baseModel
 from flask_security import RoleMixin
 
 class Role(db.Model, RoleMixin):

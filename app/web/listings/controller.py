@@ -1,50 +1,58 @@
 from app import db
 from flask import Blueprint, render_template, abort, flash, redirect, url_for
 from flask_security import login_required, current_user
+from app.web.listings.forms import ListingForm
+from app.web.listings.model import Listing
+from app.web.common.address import Address
 from jinja2 import TemplateNotFound
-from app.web.forms.deal import DealForm
-from app.web.forms.unit import UnitForm
-from app.web.models.address import Address
-from app.web.models.property import Property
-from app.web.models.unit import Unit
-from app.web.util.geocode import get_google_results
-deal = Blueprint('deal', __name__, template_folder="web/deal", url_prefix='/deal')
 
-@deal.route('/')
-@deal.route('/create', methods=['GET', 'POST'])
+
+listings = Blueprint('listings', __name__, template_folder="web/deal", url_prefix='/listings')
+
+@listings.route('/all')
+@login_required
+def all():
+    listings = Listing.query.all()
+    return render_template('web/listings/all.html',
+                           title='View Listings',
+                           listings=listings)
+
+@listings.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
-    form = DealForm()
+    form = ListingForm()
     if form.validate_on_submit():
-        handleDealForm(None, form)
-        return redirect(url_for('dashboard.index'))
-    return render_template('web/deal/create.html',
-                           title='Home',
-                           form=form)
-
-@deal.route('/<property_id>/view', methods=['GET', 'POST'])
-@login_required
-def view(property_id):
-    property = Property.query.filter_by(id=property_id).first()
-    form = DealForm()
-    if form.validate_on_submit():
-        form.populate_obj(property)
-        db.session.add(property)
+        listing = Listing()
+        address = Address()
+        listing.address = address
+        form.populate_obj(listing)
+        db.session.add(listing)
         db.session.commit()
-        #handleDealForm(property, form)
-    form = DealForm(obj=property)
-    #form.loadFormFromProperty(property)
-    return render_template('web/deal/view.html',
-                           title='View Deal',
-                           property=property,
+        return redirect(url_for('listings.all'))
+    return render_template('web/listings/create.html',
+                           title='New Listing',
                            form=form)
 
-@deal.route('/<property_id>/delete', methods=['GET', 'POST'])
+@listings.route('/edit/<listing_id>', methods=['GET', 'POST'])
 @login_required
-def delete(property_id):
-    property = Property.query.filter_by(id=property_id).first()
-    for unit in property.units:
-        db.session.delete(unit)
-    db.session.delete(property)
+def edit(listing_id):
+    form = ListingForm()
+    listing = Listing.query.filter_by(id=listing_id).first()
+    if form.validate_on_submit():
+        form.populate_obj(listing)
+        db.session.add(listing)
+        db.session.commit()
+        return redirect(url_for('listings.all'))
+    form = ListingForm(obj=listing)
+    return render_template('web/listings/create.html',
+                           title='Edit Listing',
+                           form=form)
+
+@listings.route('/delete/<listing_id>', methods=['GET', 'POST'])
+@login_required
+def delete(listing_id):
+    form = ListingForm()
+    listing = Listing.query.filter_by(id=listing_id).first()
+    db.session.delete(listing)
     db.session.commit()
-    return redirect(url_for('dashboard.index'))
+    return redirect(url_for('listings.all'))
