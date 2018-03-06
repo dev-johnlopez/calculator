@@ -71,6 +71,19 @@ class AddressForm(FlaskForm):
     def __init__(self, csrf_enabled=False, *args, **kwargs):
         super(AddressForm, self).__init__(csrf_enabled=csrf_enabled, *args, **kwargs)
 
+class PropertyDetailsForm(FlaskForm):
+    property_type = SelectField('state', choices=[  ("sfr", "Singly Family Residence"),
+                                                    ("multi", "Multi-Unit")],
+                                                    validators=[DataRequired()])
+    bedrooms = IntegerField('bedrooms', validators=[Optional()])
+    bathrooms = IntegerField('bathrooms', validators=[Optional()])
+    garage = IntegerField('garage', validators=[Optional()])
+    square_footage = IntegerField('square_footage', validators=[Optional()])
+    year_built = IntegerField('year_built', validators=[Optional()])
+
+    def __init__(self, csrf_enabled=False, *args, **kwargs):
+        super(PropertyDetailsForm, self).__init__(csrf_enabled=csrf_enabled, *args, **kwargs)
+
 
 class ListingForm(FlaskForm):
     #propertyType = SelectField('state', choices=[
@@ -79,7 +92,18 @@ class ListingForm(FlaskForm):
     #                                        ("commercial", "Commercial")],
     #    validators=[DataRequired()])
     address = FormField(AddressForm)
+    property_type = SelectField('state', choices=[  ("sfr", "Singly Family Residence"),
+                                                    ("multi", "Multi-Unit")],
+                                                    validators=[DataRequired()])
+    bedrooms = IntegerField('bedrooms', validators=[Optional()])
+    bathrooms = IntegerField('bathrooms', validators=[Optional()])
+    garage = IntegerField('garage', validators=[Optional()])
+    square_footage = IntegerField('square_footage', validators=[Optional()])
+    year_built = IntegerField('year_built', validators=[Optional()])
     listPrice = IntegerField('listPrice', validators=[DataRequired()])
     arv    = IntegerField('arv', validators=[Optional()])
     rehabCost = IntegerField('rehabCost', validators=[Optional()])
     income = IntegerField('income', validators=[Optional()])
+    seller_name = StringField('seller_name', validators=[DataRequired(), Length(min=0, max=255)])
+    seller_phone = StringField('seller_phone', validators=[DataRequired(), Length(min=0, max=255)])
+    seller_email = StringField('seller_email', validators=[DataRequired(), Length(min=0, max=255)])
