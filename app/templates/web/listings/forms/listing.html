@@ -1,6 +1,68 @@
 <form method="post">
   {{ form.hidden_tag() }}
-    {% include 'web/listings/forms/address.html' %}
+  {% include 'web/listings/forms/address.html' %}
+  <div class="card-box">
+    <h4 class="m-t-0 header-title"><b>Property Info...</b></h4>
+    <div class="form-group">
+      <label for="askingPrice">Property Type</label>
+      <div class="input-group">
+        {{ form.property_type(class="form-control", required=true) }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Bedrooms</label>
+      <div class="input-group">
+        {{ form.bedrooms(class="form-control") }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Bathrooms</label>
+      <div class="input-group">
+        {{ form.bathrooms(class="form-control") }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Garage (# of cars)</label>
+      <div class="input-group">
+        {{ form.garage(class="form-control") }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Sq. Footage</label>
+      <div class="input-group">
+        {{ form.square_footage(class="form-control") }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Year Built</label>
+      <div class="input-group">
+        {{ form.year_built(class="form-control") }}
+      </div>
+    </div>
+  </div>
+  <div class="card-box">
+    <h4 class="m-t-0 header-title"><b>Seller's Info...</b></h4>
+    <div class="form-group">
+      <label for="askingPrice">Seller Name</label>
+      <div class="input-group">
+        {{ form.seller_name(class="form-control") }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Seller Email</label>
+      <div class="input-group">
+        {{ form.seller_email(class="form-control") }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="askingPrice">Seller Phone</label>
+      <div class="input-group">
+        {{ form.seller_phone(class="form-control") }}
+      </div>
+    </div>
+  </div>
+  <div class="card-box">
+    <h4 class="m-t-0 header-title"><b>Financial Info...</b></h4>
     <div class="form-group">
       <label for="askingPrice">List Price</label>
       <div class="input-group">
@@ -29,5 +91,6 @@
         {{ form.income(class="form-control", placeholder="Income", maxlength=255) }}
       </div>
     </div>
-    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit Listing</button>
+  </div>
+  <button type="submit" class="btn btn-primary waves-effect waves-light">Submit Listing</button>
 </form>

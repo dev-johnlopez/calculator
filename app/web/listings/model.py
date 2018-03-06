@@ -15,7 +15,7 @@ class Listing(baseModel.Base):
     income = db.Column(db.Integer)
     property_type = db.Column(db.String(255),  nullable=True)
     bedrooms = db.Column(db.Integer)
-    bathrooms = db.Column(db.Integer)
+    bathrooms = db.Column(db.String(255),  nullable=True)
     garage = db.Column(db.Integer)
     square_footage = db.Column(db.Integer)
     year_built = db.Column(db.Integer)
