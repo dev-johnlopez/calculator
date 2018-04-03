@@ -12,5 +12,13 @@
 {% endmacro %}
 
 {% macro render_field(field) %}
-  <p>{{ field(**kwargs)|safe }}</p>
+    {{ field(**kwargs)|safe }}
+{% endmacro %}
+
+{% macro render_field_with_label_after(field) %}
+    {#{{ field(**kwargs)|safe }}#}
+    {{ field.label }} {{ field(**kwargs)|safe }}
+    <!--<label for="{{ field.id }}">
+      {{ field.label }}
+    </label>-->
 {% endmacro %}

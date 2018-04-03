@@ -7,7 +7,7 @@
             <ul>
                 <!-- DASHBOARD -->
                 <li>
-                    <a href="index.html" class="waves-effect waves-primary"><i
+                    <a href="#" class="waves-effect waves-primary"><i
                             class="ti-home"></i><span> Dashboard </span></a>
                 </li>
                 <!-- END DASHBOARD -->
@@ -17,11 +17,41 @@
                     <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="mdi mdi-format-list-bulleted"></i> <span> Listings </span>
                         <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="{{ url_for('listings.all') }}">View All</a></li>
+                        <li><a href="{{ url_for('listings.all') }}">Browse</a></li>
+                        <li><a href="{{ url_for('listings.saved_listings') }}">Saved Listings</a></li>
+                        <li><a href="{{ url_for('listings.my_listings') }}">My Listings</a></li>
                         <li><a href="{{ url_for('listings.create') }}">Add Listing</a></li>
                     </ul>
                 </li>
                 <!-- END LISTINGS -->
+
+                <!-- ANALYSIS -->
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="mdi mdi mdi-calculator"></i> <span> Analysis </span>
+                        <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('analysis.all') }}">View All</a></li>
+                        <li><a href="{{ url_for('analysis.settings') }}">Settings</a></li>
+                    </ul>
+                </li>
+                <!-- END ANALYSIS -->
+
+                <!-- CONTACTS -->
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="mdi mdi-human-greeting"></i> <span> Contacts </span>
+                        <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('contacts.all') }}">View All</a></li>
+                        <li><a href="{{ url_for('contacts.create') }}">Add Contact</a></li>
+                    </ul>
+                </li>
+                <!-- END CONTACTS -->
+
+                <!-- ADMIN -->
+                <li>
+                    <a href="{{ url_for('admin.index') }}" class="waves-effect waves-primary"><i class="mdi mdi-database"></i> <span> Admin </span></a>
+                </li>
+                <!-- END ADMIN -->
 
             </ul>
 

@@ -6,13 +6,8 @@
         <div class="card-box">
           <div class="row">
             <div class="col-sm-10">
-                <h4 class="text-dark  header-title m-t-0">Current Listings</h4>
+                <h4 class="text-dark  header-title m-t-0">Current Analysis</h4>
             </div>
-              <div class="col-sm-2">
-                  <div class="m-b-30">
-                      <a href="{{ url_for('listings.create') }}" class="btn btn-success btn-sm waves-effect waves-light">Add <i class="mdi mdi-plus-circle-outline"></i></a>
-                  </div>
-              </div>
           </div>
 
 
@@ -29,7 +24,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for listing in listings %}
+                  {#{% for listing in listings %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>{{ listing.address }}</td>
@@ -38,13 +33,11 @@
                         <td>{{ listing.arv }}</td>
                         <td>{{ listing.income }}</td>
                         <td class="actions">
-                            <a href="{{ url_for('analysis.analyze_listing', listing_id=listing.id) }}" class="on-default analyze-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Analyze"><i class="mdi mdi-calculator"></i></a>
-                            <a href="{{ url_for('listings.save', listing_id=listing.id) }}" class="on-default save-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save"><i class="mdi mdi-content-save"></i></a>
                             <a href="{{ url_for('listings.edit', listing_id=listing.id ) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                             <a href="{{ url_for('listings.delete', listing_id=listing.id ) }}" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
-                  {% endfor %}
+                  {% endfor %}#}
                 </tbody>
             </table>
         </div>

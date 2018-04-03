@@ -18,6 +18,7 @@
         <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
 
         <script src="{{ url_for('static', filename='js/modernizr.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 
 
     </head>
@@ -47,6 +48,7 @@
                               </div>
                           </div>
                       </div>
+                      {% include "security/_messages.html" %}
                         {% block content %}{% endblock %}
                     </div>
                     <!-- end container -->

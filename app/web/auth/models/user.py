@@ -1,12 +1,10 @@
 # Import the database object (db) from the main application module
 # We will define this inside /app/__init__.py in the next sections.
 from app import db
+from app.web.common.joinTables import user_to_listing, roles_users
 from flask_security import UserMixin
 
-# Define models
-roles_users = db.Table('roles_users',
-        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
 
 # Define a User model
 class User(db.Model, UserMixin):
@@ -27,5 +25,13 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
+    #Saved Listings
+    listings = db.relationship('Listing', secondary=user_to_listing,
+        backref=db.backref('listings', lazy=True))
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        self.listings = []
+
     def __repr__(self):
-        return '<User %r>' % (self.email)
+        return '%s' % (self.email)

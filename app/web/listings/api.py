@@ -1,13 +1,17 @@
 from app import api, db
 from app.web.listings.model import Listing
-from flask.ext.restful import Api, Resource
-from flask.ext.restful import fields, marshal_with
+from flask_restful import Api, Resource
+from flask_restful import fields, marshal_with
 #flask_restful.fields
 
-
+address_fields = {
+    "longitude" : fields.Raw,
+    "latitude": fields.Raw
+}
 
 listing_fields = {
     'address': fields.String,
+    #'address': fields.Nested(address_fields),
     'listPrice': fields.Integer,
     'arv': fields.Integer,
     'rehabCost': fields.Integer,

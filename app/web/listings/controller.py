@@ -7,7 +7,7 @@ from app.web.common.address import Address
 from jinja2 import TemplateNotFound
 
 
-listings = Blueprint('listings', __name__, template_folder="web/deal", url_prefix='/listings')
+listings = Blueprint('listings', __name__, template_folder="web/listings", url_prefix='/listings')
 
 @listings.route('/all')
 @login_required
@@ -51,8 +51,32 @@ def edit(listing_id):
 @listings.route('/delete/<listing_id>', methods=['GET', 'POST'])
 @login_required
 def delete(listing_id):
-    form = ListingForm()
     listing = Listing.query.filter_by(id=listing_id).first()
     db.session.delete(listing)
     db.session.commit()
     return redirect(url_for('listings.all'))
+
+@listings.route('/save/<listing_id>', methods=['GET', 'POST'])
+@login_required
+def save(listing_id):
+    listing = Listing.query.filter_by(id=listing_id).first()
+    current_user.listings.append(listing)
+    db.session.add(current_user)
+    db.session.commit()
+    return redirect(url_for('listings.all'))
+
+@listings.route('/saved', methods=['GET', 'POST'])
+@login_required
+def saved_listings():
+    listings = current_user.listings
+    return render_template('web/listings/all.html',
+                           title='Saved Listings',
+                           listings=listings)
+
+@listings.route('/my_listings', methods=['GET', 'POST'])
+@login_required
+def my_listings():
+    listings = Listing.query.filter_by(create_user_id=current_user.id)
+    return render_template('web/listings/all.html',
+                           title='My Listings',
+                           listings=listings)

@@ -1,6 +1,7 @@
 # Import the database object (db) from the main application module
 from app import db
 from app.web.common import baseModel
+from app.web.util.geocode import get_google_results
 
 
 # Define a User model
@@ -38,6 +39,13 @@ class Address(baseModel.Base):
     #    self.state = state
     #    self.postalCode = postalCode
 
+    def __init__(self, **kwargs):
+        super(Address, self).__init__(**kwargs)
+        #TODO - Format **kwargs and pass into the get_google_results function
+        geoInfo = get_google_results("2820 N Greenview Ave, Chicago, IL 60657")
+        if geoInfo is not None:
+            self.latitude = geoInfo['latitude']
+            self.longitude = geoInfo['longitude']
 
     def __repr__(self):
         if self.addressLine2 is None:
