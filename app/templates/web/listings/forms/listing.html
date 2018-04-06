@@ -41,23 +41,31 @@
     </div>
   </div>
   <div class="card-box">
-    <h4 class="m-t-0 header-title"><b>Seller's Info...</b></h4>
+    <h4 class="m-t-0 header-title"><b>Property Contacts...</b></h4>
     <div class="form-group">
-      <label for="askingPrice">Seller Name</label>
+      <label for="seller">Seller</label>
       <div class="input-group">
-        {{ form.seller_name(class="form-control") }}
+        <input type="text" id="seller" name="seller" class="form-control">
+        <div class="input-group-btn">
+            <button type="button" class="btn waves-effect waves-light btn-primary dropdown-toggle" data-toggle="dropdown" style="overflow: hidden; position: relative;">Action <span class="caret"></span></button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" data-toggle="modal" data-target="#new-seller-modal" href="#">New Seller</a>
+                <a class="dropdown-item" data-toggle="modal" data-target="#search-seller-modal" href="#">Search Existing</a>
+            </div>
+        </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="askingPrice">Seller Email</label>
+      <label for="list_agent">Listing Agent</label>
       <div class="input-group">
-        {{ form.seller_email(class="form-control") }}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="askingPrice">Seller Phone</label>
-      <div class="input-group">
-        {{ form.seller_phone(class="form-control") }}
+        <input type="text" id="list_agent" name="list_agent" class="form-control">
+        <div class="input-group-btn">
+            <button type="button" class="btn waves-effect waves-light btn-primary dropdown-toggle" data-toggle="dropdown" style="overflow: hidden; position: relative;">Action <span class="caret"></span></button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" data-toggle="modal" data-target="#new-listing-agent-modal" href="#">New Listing Agent</a>
+                <a class="dropdown-item" data-toggle="modal" data-target="#new-listing-agent-modal" href="#">Search Existing</a>
+            </div>
+        </div>
       </div>
     </div>
   </div>
@@ -92,5 +100,120 @@
       </div>
     </div>
   </div>
+
+
+  <div id="new-seller-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title">Seller's Information</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">First Name</label>
+                              {{ form.seller.first_name(class="form-control", maxlength=255) }}
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="field-2" class="control-label">Last Name</label>
+                              {{ form.seller.last_name(class="form-control", maxlength=255) }}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">Email</label>
+                              {{ form.seller.email(class="form-control", maxlength=255) }}
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="field-2" class="control-label">Phone</label>
+                              {{ form.seller.phone(class="form-control", maxlength=255) }}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>
+              </div>
+          </div>
+      </div>
+  </div><!-- /.modal -->
+
+  <div id="search-seller-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title">Search Existing Contacts</h4>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  {% include 'web/contacts/tables/contact-search.html' %}
+                </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>
+              </div>
+          </div>
+      </div>
+  </div><!-- /.modal -->
+
+
+
+  <div id="new-listing-agent-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title">Listing Agent's Information</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">First Name</label>
+                              {{ form.seller.first_name(class="form-control", maxlength=255) }}
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="field-2" class="control-label">Last Name</label>
+                              {{ form.seller.last_name(class="form-control", maxlength=255) }}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">Email</label>
+                              {{ form.seller.email(class="form-control", maxlength=255) }}
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="field-2" class="control-label">Phone</label>
+                              {{ form.seller.phone(class="form-control", maxlength=255) }}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>
+              </div>
+          </div>
+      </div>
+  </div><!-- /.modal -->
+
+
   <button type="submit" class="btn btn-primary waves-effect waves-light">Submit Listing</button>
 </form>

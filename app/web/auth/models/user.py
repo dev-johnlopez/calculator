@@ -3,6 +3,7 @@
 from app import db
 from app.web.common.joinTables import user_to_listing, roles_users
 from flask_security import UserMixin
+from app.web.contacts.model import Contact
 
 
 
@@ -35,3 +36,6 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return '%s' % (self.email)
+
+    def getContactsForUser(self):
+        return Contact.query.filter_by(create_user_id=self.id)

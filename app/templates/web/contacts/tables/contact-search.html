@@ -1,0 +1,32 @@
+
+<table id="contact-datatable" class="table table-bordered">
+    <thead>
+      <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+      </tr>
+    </thead>
+
+
+    <tbody>
+      {% for contact in contacts %}
+        <tr>
+            <td>{{ contact }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.phone }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+<!-- Required datatable js -->
+<script src="{{ url_for('static', filename='backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#contact-datatable').DataTable();
+    } );
+
+</script>

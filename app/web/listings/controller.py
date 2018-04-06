@@ -31,7 +31,8 @@ def create():
         return redirect(url_for('listings.all'))
     return render_template('web/listings/create.html',
                            title='New Listing',
-                           form=form)
+                           form=form,
+                           contacts=current_user.getContactsForUser())
 
 @listings.route('/edit/<listing_id>', methods=['GET', 'POST'])
 @login_required

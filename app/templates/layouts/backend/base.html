@@ -6,19 +6,19 @@
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
 
-        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon_1.ico') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='backend/images/favicon_1.ico') }}">
 
         <title>Minton - Responsive Admin Dashboard Template</title>
 
-        <link href="{{ url_for('static', filename='plugins/switchery/switchery.min.css') }}" rel="stylesheet" />
-        <link href="{{ url_for('static', filename='plugins/jquery-circliful/css/jquery.circliful.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ url_for('static', filename='backend/plugins/switchery/switchery.min.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='backend/plugins/jquery-circliful/css/jquery.circliful.css') }}" rel="stylesheet" type="text/css" />
 
-        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ url_for('static', filename='css/icons.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='backend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='backend/css/icons.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='backend/css/style.css') }}" rel="stylesheet" type="text/css">
 
-        <script src="{{ url_for('static', filename='js/modernizr.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/modernizr.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.min.js') }}"></script>
 
 
     </head>
@@ -29,8 +29,8 @@
         <!-- Begin page -->
         <div id="wrapper">
 
-            {% include 'layouts/navbar.html' %}
-            {% include 'layouts/sidebar.html' %}
+            {% include 'layouts/backend/navbar.html' %}
+            {% include 'layouts/backend/sidebar.html' %}
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -73,36 +73,36 @@
         </script>
 
         <!-- Plugins  -->
-        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script><!-- Popper for Bootstrap -->
-        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/detect.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/fastclick.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.slimscroll.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.blockUI.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/waves.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.nicescroll.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='plugins/switchery/switchery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/popper.min.js') }}"></script><!-- Popper for Bootstrap -->
+        <script src="{{ url_for('static', filename='backend/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/detect.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/fastclick.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.slimscroll.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.blockUI.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/waves.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/wow.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.nicescroll.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.scrollTo.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/plugins/switchery/switchery.min.js') }}"></script>
 
         <!-- Counter Up  -->
-        <script src="{{ url_for('static', filename='plugins/waypoints/lib/jquery.waypoints.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='plugins/counterup/jquery.counterup.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/plugins/waypoints/lib/jquery.waypoints.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/plugins/counterup/jquery.counterup.min.js') }}"></script>
 
         <!-- circliful Chart -->
-        <script src="{{ url_for('static', filename='plugins/jquery-circliful/js/jquery.circliful.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='plugins/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/plugins/jquery-circliful/js/jquery.circliful.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/plugins/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
 
         <!-- skycons -->
-        <script src="{{ url_for('static', filename='plugins/skyicons/skycons.min.js') }}" type="text/javascript"></script>
+        <script src="{{ url_for('static', filename='backend/plugins/skyicons/skycons.min.js') }}" type="text/javascript"></script>
 
         <!-- Page js  -->
-        <script src="{{ url_for('static', filename='pages/jquery.dashboard.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/pages/jquery.dashboard.js') }}"></script>
 
         <!-- Custom main Js -->
-        <script src="{{ url_for('static', filename='js/jquery.core.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.app.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.core.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.app.js') }}"></script>
 
 
         <script type="text/javascript">

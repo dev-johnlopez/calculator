@@ -30,11 +30,13 @@ app.register_blueprint(common)
 
 
 from app.web.common.joinTables import roles_users, user_to_listing
+from app.web.listings.models.propertyContact import PropertyContact
 from app.web.auth.models.role import Role
 from app.web.auth.models.user import User
 from app.web.listings.model import Listing
 from app.web.common.address import Address
 from app.web.contacts.model import Contact
+
 
 # API Setup
 from flask_restful import Api
@@ -57,6 +59,7 @@ admin.add_view(ModelView(Listing, db.session))
 admin.add_view(ModelView(Contact, db.session))
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Address, db.session))
+admin.add_view(ModelView(Role, db.session))
 
 class ReturnView(BaseView):
     @expose('/')

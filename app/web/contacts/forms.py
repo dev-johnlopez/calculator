@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Length, Optional
 from app.web.common.forms.addressForm import AddressForm
 
 class ContactForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
+    first_name = StringField('first_name', validators=[Optional()])
+    last_name = StringField('last_name', validators=[Optional()])
     email = StringField('email', validators=[Optional()])
     phone = StringField('phone', validators=[Optional()])

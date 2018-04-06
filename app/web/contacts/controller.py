@@ -11,7 +11,7 @@ contacts = Blueprint('contacts', __name__, template_folder="web/contacts", url_p
 @contacts.route('/all')
 @login_required
 def all():
-    contacts = Contact.query.filter_by(create_user_id=current_user.id)
+    contacts = current_user.getContactsForUser()
     return render_template('web/contacts/all.html',
                            title='View Contacts',
                            contacts=contacts)
@@ -48,7 +48,7 @@ def edit(contact_id):
 @contacts.route('/delete/<contact_id>', methods=['GET', 'POST'])
 @login_required
 def delete(contact_id):
-    contact = Contact.query.filter_by(id=listing_id).first()
+    contact = Contact.query.filter_by(id=contact_id).first()
     db.session.delete(contact)
     db.session.commit()
     return redirect(url_for('contacts.all'))
