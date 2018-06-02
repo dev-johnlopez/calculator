@@ -20,3 +20,6 @@ class Base(db.Model):
     def __init__(self):
         super(Base,self).__init__()
         self.create_user_id = current_user.id
+
+    def delete(self):
+        db.session.delete(self)

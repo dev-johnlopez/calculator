@@ -76,11 +76,19 @@ $(window).on('load', function() {
 
         //get the footable object
         var footable = addrow.data('footable');
+        var data = {
+          id: $("#demo-foo-addrow > tbody > tr").length + 1
+        };
+        alert($("#demo-foo-addrow > tbody > tr").length + 1);
+        var template = $('#new-footable-row').html();
+        var html = Mustache.to_html(template, data);
+        //$('#demo-foo-addrow').append(html);
+        footable.appendRow(html);
 
         //build up the row we are wanting to add
-        var newRow = '<tr><td style="text-align: center;"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td><td>Adam</td><td>Doe</td><td>Traffic Court Referee</td><td>22 Jun 1972</td><td><span class="badge label-table badge-success   ">Active</span></td></tr>';
+        //var newRow = '<tr><td style="text-align: center;"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td><td>Adam</td><td>Doe</td><td>Traffic Court Referee</td><td>22 Jun 1972</td><td><span class="badge label-table badge-success   ">Active</span></td></tr>';
 
         //add it
-        footable.appendRow(newRow);
+        //footable.appendRow(newRow);
     });
 });

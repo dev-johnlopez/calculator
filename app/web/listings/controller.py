@@ -2,7 +2,7 @@ from app import db
 from flask import Blueprint, render_template, abort, flash, redirect, url_for
 from flask_security import login_required, current_user
 from app.web.listings.forms import ListingForm
-from app.web.listings.model import Listing
+from app.web.listings.models.listing import Listing
 from app.web.common.address import Address
 from jinja2 import TemplateNotFound
 
@@ -17,10 +17,21 @@ def all():
                            title='View Listings',
                            listings=listings)
 
+@listings.route('/view/<listing_id>')
+@login_required
+def view(listing_id):
+    listing = Listing.query.filter_by(id=listing_id).first()
+    return render_template('web/listings/view.html',
+                           title='View Listing',
+                           listing=listing)
+
 @listings.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
     form = ListingForm()
+    #form.seller_id.choices = [(c.id, c) for c in current_user.getContactsForUser()]
+    #form.seller_id.choices.insert(0, (-1, ""))
+    #flash(form.seller_id.data)
     if form.validate_on_submit():
         listing = Listing()
         address = Address()
@@ -29,6 +40,8 @@ def create():
         db.session.add(listing)
         db.session.commit()
         return redirect(url_for('listings.all'))
+    elif len(form.errors) > 0:
+        flash(form.errors, 'danger')
     return render_template('web/listings/create.html',
                            title='New Listing',
                            form=form,
@@ -37,14 +50,20 @@ def create():
 @listings.route('/edit/<listing_id>', methods=['GET', 'POST'])
 @login_required
 def edit(listing_id):
-    form = ListingForm()
     listing = Listing.query.filter_by(id=listing_id).first()
+    form = ListingForm(obj=listing)
+    #form.seller_id.choices = [(c.id, c) for c in current_user.getContactsForUser()]
+    #form.seller_id.choices.insert(0, (-1, ""))
+    #flash(form.seller_id.data)
     if form.validate_on_submit():
         form.populate_obj(listing)
         db.session.add(listing)
         db.session.commit()
         return redirect(url_for('listings.all'))
-    form = ListingForm(obj=listing)
+    elif len(form.errors) > 0:
+        flash(form.errors, 'danger')
+
+
     return render_template('web/listings/create.html',
                            title='Edit Listing',
                            form=form)

@@ -1,5 +1,5 @@
 
-<table id="contact-datatable" class="table table-bordered">
+<table class="table table-bordered datatable" cellspacing="0" width="100%">
     <thead>
       <tr>
           <th>Name</th>
@@ -19,14 +19,3 @@
       {% endfor %}
     </tbody>
 </table>
-
-<!-- Required datatable js -->
-<script src="{{ url_for('static', filename='backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ url_for('static', filename='backend/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#contact-datatable').DataTable();
-    } );
-
-</script>

@@ -45,7 +45,7 @@
     <div class="form-group">
       <label for="seller">Seller</label>
       <div class="input-group">
-        <input type="text" id="seller" name="seller" class="form-control">
+        {#{{ form.seller_id(class="form-control") }}#}
         <div class="input-group-btn">
             <button type="button" class="btn waves-effect waves-light btn-primary dropdown-toggle" data-toggle="dropdown" style="overflow: hidden; position: relative;">Action <span class="caret"></span></button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -102,8 +102,8 @@
   </div>
 
 
-  <div id="new-seller-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-      <div class="modal-dialog">
+  {#<div id="new-seller-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-lg">
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -134,7 +134,7 @@
                       <div class="col-md-6">
                           <div class="form-group">
                               <label for="field-2" class="control-label">Phone</label>
-                              {{ form.seller.phone(class="form-control", maxlength=255) }}
+                              {{ form.seller.phone_number(class="form-control", maxlength=255) }}
                           </div>
                       </div>
                   </div>
@@ -148,7 +148,7 @@
   </div><!-- /.modal -->
 
   <div id="search-seller-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -201,7 +201,7 @@
                       <div class="col-md-6">
                           <div class="form-group">
                               <label for="field-2" class="control-label">Phone</label>
-                              {{ form.seller.phone(class="form-control", maxlength=255) }}
+                              {{ form.seller.phone_number(class="form-control", maxlength=255) }}
                           </div>
                       </div>
                   </div>
@@ -212,7 +212,7 @@
               </div>
           </div>
       </div>
-  </div><!-- /.modal -->
+  </div><!-- /.modal -->#}
 
 
   <button type="submit" class="btn btn-primary waves-effect waves-light">Submit Listing</button>

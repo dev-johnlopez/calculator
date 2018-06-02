@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
 
     #Saved Listings
     listings = db.relationship('Listing', secondary=user_to_listing,
-        backref=db.backref('listings', lazy=True))
+        backref=db.backref('saved_by', lazy=True))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -38,4 +38,4 @@ class User(db.Model, UserMixin):
         return '%s' % (self.email)
 
     def getContactsForUser(self):
-        return Contact.query.filter_by(create_user_id=self.id)
+        return Contact.query.filter_by(create_user_id=self.id).all()

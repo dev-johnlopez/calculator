@@ -16,6 +16,8 @@ class PropertyContact(baseModel.Base):
         backref=db.backref('contacts', lazy=True))
     contact_id = db.Column(db.Integer, db.ForeignKey('contact.id'),
         nullable=False)
+    listing_id = db.Column(db.Integer, db.ForeignKey('listing.id'),
+        nullable=False)
 
     def __repr__(self):
-        return '%s' % self.address
+        return '%s' % self.contact

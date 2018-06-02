@@ -2,6 +2,35 @@
 {% block content %}
 
 <div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Inline Editor</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                just start typing to edit, or move around with arrow keys or mouse clicks!
+            </p>
+
+            <div class="table-responsive">
+                <table id="oppExpenses" class="table table-striped m-b-0">
+                    <thead>
+                      <tr>
+                          <th>Type</th><th>Calc. Type</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                          <td>Utilities</td>
+                          <td>Fixed</td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+<div class="row">
     <div class="col-lg-12">
         <div class="card-box">
           <div class="row">
@@ -17,26 +46,30 @@
 </div>
 <!-- end row -->
 
+{% include 'layouts/backend/scripts/common-js.html' %}
+{% include 'layouts/backend/scripts/editabletable-js.html' %}
+
+<script>
+    $('#oppExpenses').editableTableWidget().numericInputExample().find('td:first').focus();
+</script>
+
+
 {% raw %}
 <script id="expense-line-item" type="text/template">
   <p>Item #</p>
 </script>
 {% endraw %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+<script src="{{ url_for('static', filename='backend/js/mustache.min.js')}}"></script>
 <script type="text/javascript">
   $( document ).ready(function() {
     $('#add-operating-expense').click( function() {
-      alert('1');
       var data = {
         id: '1'
       };
       var template = $('#expense-line-item').html();
-      alert('2');
       var html = Mustache.to_html(template, data);
-      alert('3');
       $('#operating-expenses').append(html);
-      alert('4');
     });
   });
 

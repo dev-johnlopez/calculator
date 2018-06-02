@@ -16,7 +16,7 @@
           </div>
 
 
-            <table class="table mb-0 table-responsive">
+            <table class="table mb-0 table-responsive datatable">
                 <thead>
                   <tr>
                       <th>#</th>
@@ -32,7 +32,7 @@
                   {% for listing in listings %}
                     <tr>
                         <td>{{ loop.index }}</td>
-                        <td>{{ listing.address }}</td>
+                        <td><a href="{{ url_for('listings.view', listing_id=listing.id) }}">{{ listing.address }}</a></td>
                         <td>{{ listing.listPrice }}</td>
                         <td>{{ listing.rehabCost }}</td>
                         <td>{{ listing.arv }}</td>
@@ -53,5 +53,8 @@
 
 </div>
 <!-- end row -->
+
+{% include 'layouts/backend/scripts/common-js.html' %}
+{% include 'layouts/backend/scripts/datatable-js.html' %}
 
 {% endblock %}

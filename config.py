@@ -46,6 +46,7 @@ class BaseConfig(object):
     SECURITY_RESET_PASSWORD_WITHIN = 100000
     SECURITY_LOGIN_WITHIN = 1
     SECURITY_LOGIN_WITHOUT_CONFIRMATION = True
+    SECURITY_POST_LOGIN_VIEW = '/listings/all'
 
 class TestConfig(BaseConfig):
     DEBUG = True

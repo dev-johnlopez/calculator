@@ -10,22 +10,24 @@
 
         <title>Minton - Responsive Admin Dashboard Template</title>
 
-        <link href="{{ url_for('static', filename='backend/plugins/switchery/switchery.min.css') }}" rel="stylesheet" />
-        <link href="{{ url_for('static', filename='backend/plugins/jquery-circliful/css/jquery.circliful.css') }}" rel="stylesheet" type="text/css" />
+        <!-- DataTables -->
+        <link href="{{ url_for('static', filename='backend/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ url_for('static', filename='backend/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
+        <link href="{{ url_for('static', filename='backend/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
         <link href="{{ url_for('static', filename='backend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ url_for('static', filename='backend/css/icons.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ url_for('static', filename='backend/css/style.css') }}" rel="stylesheet" type="text/css">
 
         <script src="{{ url_for('static', filename='backend/js/modernizr.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/jquery.min.js') }}"></script>
 
 
     </head>
 
 
     <body class="fixed-left">
-
+      
         <!-- Begin page -->
         <div id="wrapper">
 
@@ -49,7 +51,7 @@
                           </div>
                       </div>
                       {% include "security/_messages.html" %}
-                        {% block content %}{% endblock %}
+                      {% block content %}{% endblock %}
                     </div>
                     <!-- end container -->
                 </div>
@@ -72,19 +74,7 @@
             var resizefunc = [];
         </script>
 
-        <!-- Plugins  -->
-        <script src="{{ url_for('static', filename='backend/js/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/popper.min.js') }}"></script><!-- Popper for Bootstrap -->
-        <script src="{{ url_for('static', filename='backend/js/bootstrap.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/detect.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/fastclick.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/jquery.slimscroll.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/jquery.blockUI.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/waves.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/wow.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/jquery.nicescroll.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/jquery.scrollTo.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/plugins/switchery/switchery.min.js') }}"></script>
+
 
         <!-- Counter Up  -->
         <script src="{{ url_for('static', filename='backend/plugins/waypoints/lib/jquery.waypoints.min.js') }}"></script>
@@ -100,39 +90,6 @@
         <!-- Page js  -->
         <script src="{{ url_for('static', filename='backend/pages/jquery.dashboard.js') }}"></script>
 
-        <!-- Custom main Js -->
-        <script src="{{ url_for('static', filename='backend/js/jquery.core.js') }}"></script>
-        <script src="{{ url_for('static', filename='backend/js/jquery.app.js') }}"></script>
-
-
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $('.counter').counterUp({
-                    delay: 100,
-                    time: 1200
-                });
-                $('.circliful-chart').circliful();
-            });
-
-            // BEGIN SVG WEATHER ICON
-            if (typeof Skycons !== 'undefined'){
-                var icons = new Skycons(
-                        {"color": "#3bafda"},
-                        {"resizeClear": true}
-                        ),
-                        list  = [
-                            "clear-day", "clear-night", "partly-cloudy-day",
-                            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-                            "fog"
-                        ],
-                        i;
-
-                for(i = list.length; i--; )
-                    icons.set(list[i], list[i]);
-                icons.play();
-            };
-
-        </script>
 
 
     </body>

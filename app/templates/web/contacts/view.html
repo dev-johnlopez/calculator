@@ -1,0 +1,131 @@
+{% extends "layouts/backend/base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-xl-3 col-lg-4">
+        <div class="text-center card-box">
+            <div class="member-card">
+                <div class="text-left m-t-40">
+                    <p class="text-muted font-13"><strong>Full Name</strong><br/><span class="m-l-15">{{ contact }}</span></p>
+
+                    <p class="text-muted font-13"><strong>Mobile</strong><br/><span class="m-l-15">{{ contact.phone_number }}</span></p>
+
+                    <p class="text-muted font-13"><strong>Email</strong><br/><span class="m-l-15">{{ contact.email }}</span></p>
+
+                    <p class="text-muted font-13"><strong>Type</strong><br/><span class="m-l-15">{{ contact.contact_type}}</span></p>
+                </div>
+            </div>
+
+        </div> <!-- end card-box -->
+
+    </div> <!-- end col -->
+
+
+    <div class="col-lg-8 col-xl-9">
+        <div class="">
+            <div class="card-box">
+                <ul class="nav nav-tabs tabs-bordered">
+                    <li class="nav-item">
+                        <a href="#matching-properties" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                            MATCHING PROPERTIES
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#criteria" data-toggle="tab" aria-expanded="true" class="nav-link">
+                            INVESTMENT CRITERIA
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#purchase-history" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            PURCHASE HISTORY
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="matching-properties">
+                      <div class="port m-b-20">
+                          <div class="portfolioContainer">
+                            {% for listing in matching_listings %}
+
+
+                              <div class="row gal-detail thumb">
+                                <div class="col-sm-6 col-lg-3 col-md-4">
+                                  <a href="{{ url_for('static', filename='backend/images/gallery/1.jpg') }}" class="image-popup" title="Screenshot-1">
+                                      <img src="{{ url_for('static', filename='backend/images/gallery/1.jpg') }}" class="thumb-img" alt="work-thumbnail">
+                                  </a>
+                                </div>
+                                <div class="col-sm-6 col-lg-9 col-md-8">
+                                  <h4 class="text-center">{{ listing }}</h4>
+                                  <div class="ga-border"></div>
+                                  <p class="text-muted text-center"><small>Photography</small></p>
+                                </div>
+                              </div>
+
+                            {% endfor %}
+                          </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="criteria">
+                      <a href="{{ url_for('criteria.create', contact_id=contact.id) }}" class="btn-primary">Add</a>
+                        <table class="table mb-0 table-responsive datatable">
+                            <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Property Type</th>
+                                  <th>Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for criteria in contact.investment_criteria %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td><a href="{{ url_for('criteria.view', criteria_id=criteria.id ) }}">{{ criteria.property_type }}</a></td>
+                                    <td class="actions">
+                                        <a href="{{ url_for('criteria.edit', criteria_id=criteria.id ) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{ url_for('criteria.delete', criteria_id=criteria.id ) }}" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="purchase-history">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="FullName">Full Name</label>
+                                <input type="text" value="John Doe" id="FullName" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="Email">Email</label>
+                                <input type="email" value="first.last@example.com" id="Email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="Username">Username</label>
+                                <input type="text" value="john" id="Username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="Password">Password</label>
+                                <input type="password" placeholder="6 - 15 Characters" id="Password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="RePassword">Re-Password</label>
+                                <input type="password" placeholder="6 - 15 Characters" id="RePassword" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="AboutMe">About Me</label>
+                                <textarea style="height: 125px" id="AboutMe" class="form-control">Loren gypsum dolor sit mate, consecrate disciplining lit, tied diam nonunion nib modernism tincidunt it Loretta dolor manga Amalia erst volute. Ur wise denim ad minim venial, quid nostrum exercise ration perambulator suspicious cortisol nil it applique ex ea commodore consequent.</textarea>
+                            </div>
+                            <button class="btn btn-primary waves-effect waves-light w-md" type="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+
+{% include 'layouts/backend/scripts/common-js.html' %}
+
+{% endblock %}

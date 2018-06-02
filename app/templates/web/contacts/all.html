@@ -16,7 +16,7 @@
           </div>
 
 
-            <table class="table mb-0 table-responsive">
+            <table class="table mb-0 table-responsive datatable">
                 <thead>
                   <tr>
                       <th>#</th>
@@ -28,7 +28,7 @@
                   {% for contact in contacts %}
                     <tr>
                         <td>{{ loop.index }}</td>
-                        <td>{{ contact }}</td>
+                        <td><a href="{{ url_for('contacts.view', contact_id=contact.id ) }}">{{ contact }}</a></td>
                         <td class="actions">
                             <a href="{{ url_for('contacts.edit', contact_id=contact.id ) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                             <a href="{{ url_for('contacts.delete', contact_id=contact.id ) }}" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
@@ -43,5 +43,8 @@
 
 </div>
 <!-- end row -->
+
+{% include 'layouts/backend/scripts/common-js.html' %}
+{% include 'layouts/backend/scripts/datatable-js.html' %}
 
 {% endblock %}

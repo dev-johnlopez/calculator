@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import Form, FormField, IntegerField, SelectField, FieldList, DecimalField, StringField
 from wtforms.validators import DataRequired, Length, Optional
 from app.web.common.forms.addressForm import AddressForm
-from app.web.contacts.forms import ContactForm
+from app.web.contacts.forms.no_csrf_contact import NoCSRFContactForm
 
 
 
@@ -40,7 +40,5 @@ class ListingForm(FlaskForm):
     arv    = IntegerField('arv', validators=[Optional()])
     rehabCost = IntegerField('rehabCost', validators=[Optional()])
     income = IntegerField('income', validators=[Optional()])
-    seller = FormField(ContactForm)
-    #seller_name = StringField('seller_name', validators=[Length(min=0, max=255)])
-    #seller_phone = StringField('seller_phone', validators=[Length(min=0, max=255)])
-    #seller_email = StringField('seller_email', validators=[Length(min=0, max=255)])
+    #seller_id = SelectField('Seller', choices=[0, ""], validators=[Optional()])
+    #seller = FormField(NoCSRFContactForm)

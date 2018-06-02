@@ -19,9 +19,7 @@ class Listing(baseModel.Base):
     garage = db.Column(db.Integer)
     square_footage = db.Column(db.Integer)
     year_built = db.Column(db.Integer)
-    seller_name = db.Column(db.String(255),  nullable=True)
-    seller_phone = db.Column(db.String(255),  nullable=True)
-    seller_email = db.Column(db.String(255),  nullable=True)
+    #contacts = db.relationship("PropertyContact", backref='listing', lazy=True)
 
     def __repr__(self):
         return '%s' % self.address

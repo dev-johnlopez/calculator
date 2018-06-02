@@ -1,5 +1,5 @@
 from app import api, db
-from app.web.listings.model import Listing
+from app.web.listings.models.listing import Listing
 from flask_restful import Api, Resource
 from flask_restful import fields, marshal_with
 #flask_restful.fields
